@@ -14,6 +14,15 @@ namespace Taxio
         {
             conn = new SQLiteConnection(path);
             conn.CreateTable<User>();
+            conn.CreateTable<Car_vendor>();
+        }
+        public List<Car_vendor> GetCar_Vendors() 
+        {
+            return conn.Table<Car_vendor>().ToList();
+        }
+        public int SaveVendor(Car_vendor vendor)
+        {
+            return conn.Insert(vendor);
         }
         public List<User> GetUsers()
         {

@@ -24,6 +24,10 @@ namespace Taxio
         {
             UserCollection.ItemsSource = App.Db.GetUsers();
         }
+        private void GetVendors()
+        {
+            VendorCollection.ItemsSource = App.Db.GetCar_Vendors();
+        }
 
 
         private async void AddItemButton_User(object sender, EventArgs e)
@@ -49,6 +53,21 @@ namespace Taxio
             ShowUsers();
             Namefield = "";
             UserId_Field = 0;
+        }
+        private async void AddItemButton_Vendor(object sender, EventArgs e)
+        {
+            string VendorField = Car_VendorField.Text.Trim();
+            if (VendorField.Length < 1)
+            {
+                await DisplayAlert("Error", "Car vendor error", "Ok");
+            }
+            Car_vendor car_Vendor = new Car_vendor
+            {
+                Car_Vendors = VendorField,
+            };
+            App.Db.SaveVendor(car_Vendor);
+            GetVendors();
+            VendorField = "";
         }
     }
 }
