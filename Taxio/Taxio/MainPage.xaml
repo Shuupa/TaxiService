@@ -6,13 +6,23 @@
         <Entry x:Name="User_idField" Placeholder="Enter title" />
         <Entry x:Name="NameField" Placeholder="Enter title" />
         <Button Text="Create" Clicked="AddItemButton_User"/>
-
         <CollectionView x:Name="UserCollection">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout>
                         <Label Text="{Binding User_name}"/>
                         <Label Text="{Binding User_id}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Entry x:Name="Car_VendorField" Placeholder="Ender vendor"/>
+        <Button Text="Enter" Clicked="AddItemButton_Vendor"/>
+        <CollectionView x:Name="VendorCollection">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Car_Vendors}"/>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
