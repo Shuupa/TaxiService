@@ -2,10 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Taxio.MainPage">
-    <StackLayout Margin="15">
-        <Entry x:Name="User_idField" Placeholder="Enter title" />
-        <Entry x:Name="NameField" Placeholder="Enter title" />
-        <Button Text="Create" Clicked="AddItemButton_User"/>
+    <StackLayout Margin="10">
+        <Entry x:Name="User_idField" Placeholder="Enter ID" />
+        <Entry x:Name="NameField" Placeholder="Enter username" />
+        <Button Text="Create" Clicked="AddItemButton_User" BackgroundColor="cyan"/>
         <CollectionView x:Name="UserCollection">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -16,13 +16,24 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Entry x:Name="Car_VendorField" Placeholder="Ender vendor"/>
-        <Button Text="Enter" Clicked="AddItemButton_Vendor"/>
+        <Entry x:Name="Car_VendorField" Placeholder="Enter vendor"/>
+        <Button Text="Enter" Clicked="AddItemButton_Vendor" BackgroundColor="Cyan"/>
         <CollectionView x:Name="VendorCollection">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout>
                         <Label Text="{Binding Car_Vendors}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Entry x:Name="Car_StatField" Placeholder="Enter car stat"/>
+        <Button Text="Enter" Clicked="AddItemButton_CarStat" BackgroundColor="Cyan"/>
+        <CollectionView x:Name="CarsCollection">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Car_Stat}"/>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

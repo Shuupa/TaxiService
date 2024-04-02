@@ -18,6 +18,8 @@ namespace Taxio
         protected override void OnAppearing()
         {
             ShowUsers();
+            GetVendors();
+            GetCars();
         }
 
         private void ShowUsers()
@@ -28,7 +30,10 @@ namespace Taxio
         {
             VendorCollection.ItemsSource = App.Db.GetCar_Vendors();
         }
-
+        private void GetCars()
+        {
+            CarsCollection.ItemsSource = App.Db.Get_cars();
+        }
 
         private async void AddItemButton_User(object sender, EventArgs e)
         {
@@ -68,6 +73,21 @@ namespace Taxio
             App.Db.SaveVendor(car_Vendor);
             GetVendors();
             VendorField = "";
+        }
+        private async void AddItemButton_CarStat(object sender, EventArgs e)
+        {
+            string CarField = Car_StatField.Text.Trim();
+            if (CarField.Length < 1)
+            {
+                await DisplayAlert("Error", "Stat error", "Ok");
+            }
+            Cars cars = new Cars
+            {
+                Car_Stat = CarField,
+            };
+            App.Db.SaveCars(cars);
+            GetCars();
+            CarField = "";
         }
     }
 }
