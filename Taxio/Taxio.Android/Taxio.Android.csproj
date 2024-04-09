@@ -17,7 +17,7 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v13.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
@@ -92,10 +92,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\drawable\Bui_Car_Ref.png" />
-    <Content Include="Resources\drawable\Comf_Car_Ref.png" />
-    <Content Include="Resources\drawable\Eco_car_ref.png" />
-    <Content Include="Resources\drawable\Profile.png" />
+    <AndroidResource Include="Resources\drawable\Bui_Car_Ref.png" />
+    <AndroidResource Include="Resources\drawable\Comf_Car_Ref.png" />
+    <AndroidResource Include="Resources\drawable\Eco_car_ref.png" />
+    <AndroidResource Include="Resources\drawable\Profile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
