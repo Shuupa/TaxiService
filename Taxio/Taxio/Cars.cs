@@ -8,8 +8,9 @@ namespace Taxio
     public class Cars
     {
         [PrimaryKey, AutoIncrement]
-        public int ID {  get; set; }
+        public int ID { get; set; }
         public string Car_Stat { get; set; }
+        public string car_vendors { get; set; }
 
     }
 }

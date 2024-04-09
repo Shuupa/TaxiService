@@ -2,41 +2,44 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Taxio.MainPage">
-    <StackLayout Margin="10">
-        <Entry x:Name="User_idField" Placeholder="Enter ID" />
-        <Entry x:Name="NameField" Placeholder="Enter username" />
-        <Button Text="Create" Clicked="AddItemButton_User" BackgroundColor="cyan"/>
-        <CollectionView x:Name="UserCollection">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout>
-                        <Label Text="{Binding User_name}"/>
-                        <Label Text="{Binding User_id}"/>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <Entry x:Name="Car_VendorField" Placeholder="Enter vendor"/>
-        <Button Text="Enter" Clicked="AddItemButton_Vendor" BackgroundColor="Cyan"/>
-        <CollectionView x:Name="VendorCollection">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout>
-                        <Label Text="{Binding Car_Vendors}"/>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <Entry x:Name="Car_StatField" Placeholder="Enter car stat"/>
-        <Button Text="Enter" Clicked="AddItemButton_CarStat" BackgroundColor="Cyan"/>
-        <CollectionView x:Name="CarsCollection">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout>
-                        <Label Text="{Binding Car_Stat}"/>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+    <StackLayout BackgroundColor="DarkGray">
+
+        <Button HorizontalOptions="Start" HeightRequest="50" WidthRequest="50" CornerRadius="50" Margin="10,10,0,0" BackgroundColor="White"/>
+        <StackLayout>
+            <Frame BackgroundColor="White" Margin="40,20,40,0" HeightRequest="400" CornerRadius="30">
+                <AbsoluteLayout>
+                    <Label x:Name="Entry1" Text="Адрес подачи:" HorizontalOptions="Start"/>
+                    
+                </AbsoluteLayout>
+            </Frame>
+        </StackLayout>
+        <StackLayout>
+            <Frame CornerRadius="20" HeightRequest="100" Margin="0,10,0,0" BackgroundColor="LightGray">
+                <AbsoluteLayout HorizontalOptions="StartAndExpand">
+                    <Frame Margin="-20,-20,0,0" BackgroundColor="Transparent">
+                    <Button x:Name="EconomButton" BackgroundColor="Green" Margin="-10,-10,0,0" CornerRadius="20" WidthRequest="90" HeightRequest="85"/>
+                    </Frame>
+                    <Frame Margin="110,-20,0,0" BackgroundColor="Transparent">
+                        <Button x:Name="ComfortButton" BackgroundColor="#BE8F56" Margin="0,-10,0,0" CornerRadius="20" WidthRequest="90" HeightRequest="85"/>
+                    </Frame>
+                    <Frame Margin="255,-20,0,0" BackgroundColor="Transparent">
+                        <Button x:Name="BusinessButton" BackgroundColor="DarkBlue" Margin="0,-10,0,0" CornerRadius="20" WidthRequest="90" HeightRequest="85"/>
+                    </Frame>
+                    <Label Text="Эконом" TextColor="White" Margin="10,0,0,0" FontSize="12"/>
+                    <Label Text="Комфорт" TextColor="White" Margin="150,0,0,0" FontSize="12"/>
+                    <Label Text="Business" TextColor="White" Margin="295,0,0,0" FontSize="12"/>
+                    <Label x:Name="Eco_Picker" TextColor="White" Margin="10,45,0,0" FontSize="12"/>
+                    <Label Text="Комфорт" TextColor="White" Margin="150,45,0,0" FontSize="12"/>
+                    <Label Text="Business" TextColor="White" Margin="295,45,0,0" FontSize="12"/>
+
+                </AbsoluteLayout>
+            </Frame>
+            <Frame CornerRadius="20" HeightRequest="100" Margin="0,-40,0,0" BackgroundColor="White">
+                
+            </Frame>
+            <Frame CornerRadius="20" HeightRequest="100" Margin="0,-50,0,-20" BackgroundColor="DarkGray">
+                
+            </Frame>
+        </StackLayout>
     </StackLayout>
 </ContentPage>
