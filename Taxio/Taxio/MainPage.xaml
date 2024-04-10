@@ -2,20 +2,50 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Taxio.MainPage">
-    <StackLayout BackgroundColor="DarkGray">
-        <Button HorizontalOptions="Start" HeightRequest="50" WidthRequest="50" CornerRadius="50" Margin="10,10,0,0" BackgroundColor="White"/>
+    <StackLayout BackgroundColor="DimGray">
+        <ImageButton Source="Profile.png" CornerRadius="50" HeightRequest="50" WidthRequest="50" Margin="5,5,0,0" HorizontalOptions="Start" BackgroundColor="DimGray"/>
         <StackLayout>
             <Frame BackgroundColor="White" Margin="40,20,40,0" HeightRequest="400" CornerRadius="30">
                 <AbsoluteLayout>
-                    <Label x:Name="Entry1" Text="Адрес подачи:" HorizontalOptions="Start"/>
-                    
+                    <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="Entry1" TextColor="DimGray" Text="Адрес подачи:" HorizontalOptions="Start"/>
+                        <Frame Grid.Row="1" Grid.ColumnSpan="5" BackgroundColor="DimGray" HorizontalOptions="FillAndExpand" CornerRadius="15">
+                        </Frame>
+                        <Entry x:Name="PosRN" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" FontSize="12" Text="Адрес" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                        <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" TextColor="DimGray" Text="Адрес прибытия:"/>
+                        <Frame Grid.Row="3" Grid.ColumnSpan="5" BackgroundColor="DimGray" HorizontalOptions="FillAndExpand" CornerRadius="15">
+                        </Frame>
+                        <Label x:Name="TimeToTravel" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5" TextColor="DimGray" Text="В пути: 40 Минут / 25 КМ" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                        <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" TextColor="DimGray" Text="Водитель: Арсен Гамарджоба Саркисян / Toyota Camry 2.0" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                        <Label x:Name="OrderPrice" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="5" TextColor="DimGray"  Text="Стоимость поездки: 753" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                        <Frame Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" BorderColor="DimGray" CornerRadius="10">
+                        </Frame>
+                        <Label Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" TextColor="DimGray" Text="A 777 AA 22" TextTransform="Uppercase" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="24"/>
+                    </Grid>
                 </AbsoluteLayout>
             </Frame>
         </StackLayout>
         <StackLayout>
-            <Frame CornerRadius="20" HeightRequest="100" Margin="0,10,0,0" BackgroundColor="LightGray">
+            <Frame CornerRadius="20" HeightRequest="100" Margin="0,10,0,0" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <AbsoluteLayout>
-                    <Grid>
+                    <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -25,28 +55,46 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Column="0" Grid.Row="0" x:Name="EconomButton" BackgroundColor="DarkGreen" Margin="0,-10,0,10" CornerRadius="20" WidthRequest="90" HeightRequest="85"/>
-                        <Button Grid.Column="2" Grid.Row="0" x:Name="BusinessButton" BackgroundColor="DarkBlue" Margin="0,-10,0,10" CornerRadius="20" WidthRequest="90" HeightRequest="85"/>
-                        <Button Grid.Column="1" Grid.Row="0" x:Name="ComfortButton" BackgroundColor="#BE8F56" Margin="0,-10,0,10" CornerRadius="20" WidthRequest="90" HeightRequest="85"/>
+                        <Button Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" x:Name="EconomButton" Clicked="EconomButton_Click" BackgroundColor="DarkGreen" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                        <Button Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" x:Name="BusinessButton" Clicked="BusinessButton_Click" BackgroundColor="DarkBlue" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85"/>
+                        <Button Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" x:Name="ComfortButton" Clicked="ComfortButton_Click" BackgroundColor="#BE8F56" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85"/>
+                        <Image Source="Bui_Car_Ref.png" Scale="0.5"/>
+                        <Image Source="Comf_Car_Ref.png" Scale="0.5"/>
+                        <Image Source="Eco_Car_Ref.png" Scale="0.5"/>
+                        <Label Text="Эконом" TextColor="White" FontSize="12"/>
+                        <Label Text="Комфорт" TextColor="White" FontSize="12"/>
+                        <Label Text="Business" TextColor="White" FontSize="12"/>
+                        <Label x:Name="Eco_Picker" TextColor="White" FontSize="12"/>
+                        <Label Text="Комфорт" TextColor="White" FontSize="12"/>
+                        <Label Text="Business" TextColor="White" FontSize="12"/>
                     </Grid>
-                    <Image Source="Bui_Car_Ref.png" Margin="285,20,0,0" Scale="0.8"/>
-                    <Image Source="Comf_Car_Ref.png" Margin="96,2,0,0" Scale="0.35"/>
-                    <Image Source="Eco_Car_Ref.png" Margin="-45,2,0,0" Scale="0.35"/>
-                    <Label Text="Эконом" TextColor="White" Margin="10,0,0,0" FontSize="12"/>
-                    <Label Text="Комфорт" TextColor="White" Margin="150,0,0,0" FontSize="12"/>
-                    <Label Text="Business" TextColor="White" Margin="295,0,0,0" FontSize="12"/>
-                    <Label x:Name="Eco_Picker" TextColor="White" Margin="10,45,0,0" FontSize="12"/>
-                    <Label Text="Комфорт" TextColor="White" Margin="150,45,0,0" FontSize="12"/>
-                    <Label Text="Business" TextColor="White" Margin="295,45,0,0" FontSize="12"/>
-                    
                 </AbsoluteLayout>
             </Frame>
             <Frame CornerRadius="20" HeightRequest="100" Margin="0,-40,0,0" BackgroundColor="White">
-                
+                <AbsoluteLayout>
+                    <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Label TextColor="DimGray" FontFamily="Consola" FontSize="22" Grid.Column="1" Grid.ColumnSpan="1" Text="Водитель прибудет через 3 минуты" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+                    </Grid>
+                </AbsoluteLayout>
             </Frame>
-            <Frame CornerRadius="20" HeightRequest="100" Margin="0,-50,0,-20" BackgroundColor="DarkGray">
-                
+            <Frame CornerRadius="20" HeightRequest="80" Margin="0,-50,0,-20" BackgroundColor="DimGray">
+                <AbsoluteLayout>
+                    <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="OrderGoButton" FontAttributes="Bold" FontFamily="Impact"  WidthRequest="362" HeightRequest="75" Margin="0,-5,0,0" CornerRadius="20" BackgroundColor="DarkGray" TextColor="White" FontSize="40" Grid.Column="0" Grid.ColumnSpan="3" Text="Заказать" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Font="Impact-Regular"/>
+                    </Grid>
+                </AbsoluteLayout>
             </Frame>
         </StackLayout>
     </StackLayout>
