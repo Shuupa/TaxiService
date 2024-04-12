@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Taxio
+namespace Taxio.Models
 {
     public class User
     {

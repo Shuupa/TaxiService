@@ -5,12 +5,13 @@ using System.Text;
 
 namespace Taxio
 {
-    public class Cars
+    public class CarsV2
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public string Car_Stat { get; set; }
+        public string Driver_name { get; set; }
         public string car_vendors { get; set; }
-
+        public string Car_Gos { get; set; }
     }
 }
