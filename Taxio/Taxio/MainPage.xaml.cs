@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
-using SQLite;
-using Taxio.Models;
 using System.IO;
-using System.Xml.Linq;
+using Xamarin.Essentials;
 namespace Taxio
 {
     public partial class MainPage : ContentPage
@@ -17,12 +15,12 @@ namespace Taxio
         {
             get
             {
-                if(database == null)
+                if (database == null)
                 {
                     database = new DB(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DataPlace.db3"));
                 }
                 return database;
-                
+
             }
 
         }
@@ -42,9 +40,6 @@ namespace Taxio
         };
         private void PosRN_Search_OnSearchButtonPressed(object sender, EventArgs e)
         {
-            string keyword = PosRN_Search_AdressTo.Text;
-
-            IEnumerable<string> searchResult =  _Adress.Where(adress => adress.ToLower().Contains(keyword.ToLower()));
         }
         private void PosRN_Search_OnSearchButtonPressed2(object sender, EventArgs e)
         {
@@ -60,91 +55,98 @@ namespace Taxio
         public MainPage()
         {
             InitializeComponent();
-
         }
         //CALCULATIONS
-        private double DistanceTimeMath(double distance)
+
+        // This method contains 2 adress and calculate distance for A to B
+        private double GetDistanceATOB()
         {
-            double distanceto = distance;
+            double PlanetRAD = 6371; //km
+
+            double distance = 25;
+            return distance;
+        }
+        // This calculate time to travel
+        private double DistanceTimeMath()
+        {
+            double distance = GetDistanceATOB();
             double kmtime = 1.50;
-            double TimeToPass = distanceto * kmtime;
+            double TimeToPass = distance * kmtime;
             return TimeToPass;
         }
-        private double PriceCalculation(double distance, int km, double ratemultipler)
+        // This shit calculate price XD
+        private double PriceCalculation(int rate)
         {
-            double distanceto = distance;
-            double priceratemultipler = ratemultipler;
-            int kmprice = km;
-            double PriceMath = distanceto * kmprice * priceratemultipler;
-            return PriceMath;
-        }
-        private async void RatePicker(int rate)
-        {
-            var c = await MainPage.Database.GetCarsV2();
-            int ratematch = c.FindIndex(car => car.Car_Stat == Convert.ToString(rate));
+            double distance = GetDistanceATOB();
+            double ratemultipler = 0;
+            double km = 0;
             switch (rate)
             {
                 case 1:
-                    DriverNamenCar.Text = Convert.ToString(c.ElementAt(ratematch).Driver_name + " / " + c.ElementAt(ratematch).car_vendors);
-                    Car_GosNum.Text = Convert.ToString(c.ElementAt(ratematch).Car_Gos);
+                    km = 24;
+                    ratemultipler = 1.22;
                     break;
                 case 2:
-                    DriverNamenCar.Text = Convert.ToString(c.ElementAt(ratematch).Driver_name + " / " + c.ElementAt(ratematch).car_vendors);
-                    Car_GosNum.Text = Convert.ToString(c.ElementAt(ratematch).Car_Gos);
+                    km = 32;
+                    ratemultipler = 1.87;
                     break;
                 case 3:
-                    DriverNamenCar.Text = Convert.ToString(c.ElementAt(ratematch).Driver_name + " / " + c.ElementAt(ratematch).car_vendors);
-                    Car_GosNum.Text = Convert.ToString(c.ElementAt(ratematch).Car_Gos);
+                    km = 66;
+                    ratemultipler = 2.33;
                     break;
             }
-            Console.WriteLine(ratematch);
+            double PriceMath = distance * km * ratemultipler;
+            return PriceMath;
+        }
+        // Method returns Driver name, car name and gos num
+        private async void _RatePicker(int rate)
+        {
+            var c = await MainPage.Database.GetCarsV3();
+            int carindex = 0;
+            var list_indexstore = new List<int>();
+            int len = list_indexstore.Count();
+            var indexfinder = c.Where(car => car.Car_Stat == Convert.ToString(rate)).ToList();
+            foreach (var index in indexfinder)
+            {
+                int _INDEX = Convert.ToInt32(index.ID);
+                list_indexstore.Add(_INDEX);
+            }
+            Random rand = new Random();
+            int randomIndex = rand.Next(list_indexstore.Min(), list_indexstore.Max());
+            Console.WriteLine(randomIndex);
+            carindex = randomIndex;
+            list_indexstore = null;
+            DriverNamenCar.Text = Convert.ToString(c.ElementAt(carindex).Driver_name + " / " + c.ElementAt(carindex).car_vendors);
+            Car_GosNum.Text = Convert.ToString(c.ElementAt(carindex).Car_Gos);
+            carindex = 0;
+            indexfinder = null;
+        }
+        // Method take several methods to write distance, time to travel and price
+        private void _ORDER_OPTION(int rate)
+        {
+            TimeToTravel.Text = "";
+            TimeToTravel.Text = Convert.ToString("В пути: " + GetDistanceATOB() + " Км" + " / " + DistanceTimeMath() + " Минут");
+            OrderPrice.Text = "";
+            OrderPrice.Text = Convert.ToString("Цена: " + PriceCalculation(rate) + " ₽");
         }
         //LOGIC
         private void EconomButton_Click(object sender, EventArgs e)
         {
             int rate = 1;
-            RatePicker(rate);
-            OrderGoButton.BackgroundColor = Color.DarkGreen;
-            int km = 24;
-            double ratemultipler = 1.22;
-            double distance = 25;
-            double PriceMath = PriceCalculation(distance, km, ratemultipler);
-            double TimeToPass =  DistanceTimeMath(distance);
-            TimeToTravel.Text = "";
-            TimeToTravel.Text = Convert.ToString("В пути: " + distance + " Км" + " / " + TimeToPass + " Минут");
-            OrderPrice.Text = "";
-            OrderPrice.Text = Convert.ToString("Цена: " + PriceMath + " ₽");
-            
+            _RatePicker(rate);
+            _ORDER_OPTION(rate);
         }
         private void BusinessButton_Click(object sender, EventArgs e)
         {
             int rate = 3;
-            RatePicker(rate);
-            OrderGoButton.BackgroundColor = Color.FromHex("#2D2DDF");
-            int km = 66;
-            double ratemultipler = 2.33;
-            double distance = 35;
-            double PriceMath = PriceCalculation(distance, km, ratemultipler);
-            double TimeToPass = DistanceTimeMath(distance);
-            TimeToTravel.Text = "";
-            TimeToTravel.Text = Convert.ToString("В пути: " + distance + " Км" + " / " + TimeToPass + " Минут");
-            OrderPrice.Text = "";
-            OrderPrice.Text = Convert.ToString("Цена: " + PriceMath + " ₽");
+            _RatePicker(rate);
+            _ORDER_OPTION(rate);
         }
         private void ComfortButton_Click(object sender, EventArgs e)
         {
             int rate = 2;
-            RatePicker(rate);          
-            OrderGoButton.BackgroundColor = Color.FromHex("#FFBE8F56");
-            int km = 32;
-            double ratemultipler = 1.87;
-            double distance = 42;
-            double PriceMath = PriceCalculation(distance, km, ratemultipler);
-            double TimeToPass = DistanceTimeMath(distance);
-            TimeToTravel.Text = "";
-            TimeToTravel.Text = Convert.ToString("В пути: " + distance + " Км" + " / " + TimeToPass + " Минут");
-            OrderPrice.Text = "";
-            OrderPrice.Text = Convert.ToString("Цена: " + PriceMath + " ₽");
+            _RatePicker(rate);
+            _ORDER_OPTION(rate);
         }
     }
 }
