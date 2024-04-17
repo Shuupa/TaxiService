@@ -1,8 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Taxio"
              x:Class="Taxio.MainPage">
-    <StackLayout BackgroundColor="DimGray">
+    <StackLayout Style="{StaticResource Key=CustomColors}">
+        <StackLayout.Resources>
+            <ResourceDictionary>
+                <Color x:Key="BaseColor">#161a1e</Color>
+                <Style TargetType="StackLayout" x:Key="CustomColors">
+                    <Setter Property="BackgroundColor" Value="{StaticResource BaseColor}"/>
+                </Style>
+                <Color x:Key="FirstColor">#183D3D</Color>
+                <Style TargetType="Frame" x:Key="CustomFrames1">
+                    <Setter Property="BackgroundColor" Value="{StaticResource FirstColor}"/>
+                </Style>
+                <Color x:Key="SecondColor">#5C8374</Color>
+                <Style TargetType="Frame" x:Key="CustomFrames2">
+                    <Setter Property="BackgroundColor" Value="{StaticResource SecondColor}"/>
+                </Style>
+                <Color x:Key="ThirdColor">#93B1A6</Color>
+                <Style TargetType="Frame" x:Key="CustomFrames3">
+                    <Setter Property="BackgroundColor" Value="{StaticResource ThirdColor}"/>
+                </Style>
+                <Color x:Key="TextColorStandart">#DADAFF</Color>
+                <FontAttributes x:Key="DefaultBold">Bold</FontAttributes>
+                <Font x:Key="DefaultFont">Impact</Font>
+                <Style TargetType="Label" x:Key="TextStandartColor">
+                    <Setter Property="TextColor" Value="{StaticResource TextColorStandart}"/>
+                    <Setter Property="FontAttributes" Value="{StaticResource DefaultBold}"/>
+                    <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
+                </Style>
+            </ResourceDictionary>
+        </StackLayout.Resources>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -29,7 +58,7 @@
             </Grid.RowDefinitions>
             <ImageButton x:Name="FlyoutMenu" Clicked="FlyoutMenu_Click" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Source="Profile.png" CornerRadius="50" Margin="10,10,0,0" HorizontalOptions="Start" BackgroundColor="DimGray"/>
             <StackLayout Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="8" >
-                <Frame BackgroundColor="White" HeightRequest="400" CornerRadius="30">
+                <Frame BackgroundColor="{StaticResource SecondColor}" HeightRequest="400" CornerRadius="30">
                     <AbsoluteLayout>
                         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                             <Grid.ColumnDefinitions>
@@ -47,22 +76,21 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="Entry1" TextColor="DimGray" Text="Адрес подачи:" HorizontalOptions="Start"/>
-                            <Frame Grid.Row="1" Grid.ColumnSpan="5" BackgroundColor="DimGray" HorizontalOptions="FillAndExpand" CornerRadius="15">
+                            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="Entry1" FontFamily="Times new roman" FontAttributes="{StaticResource DefaultBold}" TextColor="{StaticResource TextColorStandart}" Text="Адрес подачи:" HorizontalOptions="Start"/>
+                            <Frame Grid.Row="1" Grid.ColumnSpan="5" HorizontalOptions="FillAndExpand" CornerRadius="15" BackgroundColor="DarkSlateGray"/>
+                            <SearchBar x:Name="PosRN_Search_AdressTo" Grid.Row="1" CancelButtonColor="{StaticResource TextColorStandart}" TextColor="{StaticResource TextColorStandart}"  PlaceholderColor="{StaticResource ThirdColor}" Grid.Column="0" Grid.ColumnSpan="5" FontSize="12" SearchButtonPressed="PosRN_Search_OnSearchButtonPressed" IsEnabled="True" Placeholder="Введите адрес..."/>
+                            <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" TextColor="{StaticResource TextColorStandart}" Text="Адрес прибытия:"/>
+                            <Frame Grid.Row="3" Grid.ColumnSpan="5" BackgroundColor="DarkSlateGray" HorizontalOptions="FillAndExpand" CornerRadius="15">
                             </Frame>
-                            <SearchBar x:Name="PosRN_Search_AdressTo" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" FontSize="12" SearchButtonPressed="PosRN_Search_OnSearchButtonPressed" IsEnabled="True" Placeholder="Введите адрес..."/>
-                            <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" TextColor="DimGray" Text="Адрес прибытия:"/>
-                            <Frame Grid.Row="3" Grid.ColumnSpan="5" BackgroundColor="DimGray" HorizontalOptions="FillAndExpand" CornerRadius="15">
-                            </Frame>
-                            <SearchBar x:Name="PosRN_Search_AdressToGo" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" FontSize="12" SearchButtonPressed="PosRN_Search_OnSearchButtonPressed2" IsEnabled="True" Placeholder="Введите адрес..."/>
-                            <Label x:Name="TimeToTravel" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5" TextColor="DimGray" Text="В пути: 40 Минут / 25 КМ" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-                            <Label x:Name="DriverNamenCar" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" TextColor="DimGray" Text="" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-                            <Label x:Name="OrderPrice" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="5" TextColor="DimGray"  Text="Стоимость поездки: 753" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                            <SearchBar x:Name="PosRN_Search_AdressToGo" Grid.Row="3" CancelButtonColor="{StaticResource TextColorStandart}" TextColor="{StaticResource TextColorStandart}"  PlaceholderColor="{StaticResource ThirdColor}" Grid.Column="0" Grid.ColumnSpan="5" FontSize="12" SearchButtonPressed="PosRN_Search_OnSearchButtonPressed2" IsEnabled="True" Placeholder="Введите адрес..."/>
+                            <Label x:Name="TimeToTravel" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5" TextColor="{StaticResource TextColorStandart}" Text="В пути: 40 Минут / 25 КМ" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                            <Label x:Name="DriverNamenCar" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" TextColor="{StaticResource TextColorStandart}" Text="" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                            <Label x:Name="OrderPrice" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="5" TextColor="{StaticResource TextColorStandart}"  Text="Стоимость поездки: 753" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
                             <Frame Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" BorderColor="DimGray" CornerRadius="10">
                             </Frame>
-                            <Label x:Name="Car_GosNum" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" TextColor="DimGray"  TextTransform="Uppercase" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="24"/>
+                            <Label x:Name="Car_GosNum" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" TextColor="Black"  TextTransform="Uppercase" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="24"/>
                             <StackLayout IsVisible="False" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Grid.RowSpan="8" x:Name="menuLayout" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="-10,-10,-10,-10">
-                                <Frame x:Name="Menuframe" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="20" Scale="1.07">
+                                <Frame x:Name="Menuframe" IsVisible="False" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="20" Scale="1.07">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
@@ -81,6 +109,7 @@
                                         <ImageButton Grid.Column="0" Grid.Row="0" Source="Profile.png" BackgroundColor="DimGray" IsEnabled="False" CornerRadius="50" WidthRequest="50" HeightRequest="50" VerticalOptions="Start" HorizontalOptions="Start"/>
                                         <Label x:Name="USER_ID" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" Text="ID:8391248125792"/>
                                         <Label x:Name="USERNAME" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="Афонасьев Виктор Павлович"/>
+                                        <Label x:Name="RightsPolicy" Text="" Grid.Column="0" VerticalOptions="End" HorizontalOptions="Center" Grid.ColumnSpan="4" Grid.Row="6" Opacity="0.45"/>
                                     </Grid>
                                 </Frame>
                             </StackLayout>
@@ -89,7 +118,7 @@
                 </Frame>
             </StackLayout>
             <StackLayout Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="9" Grid.RowSpan="6" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                <Frame CornerRadius="20" HeightRequest="100" Margin="0,10,0,0" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Frame CornerRadius="20" HeightRequest="100" Margin="0,10,0,0" BackgroundColor="{StaticResource FirstColor}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <AbsoluteLayout>
                         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                             <Grid.ColumnDefinitions>
@@ -105,19 +134,16 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <ImageButton Source="Eco_Car_Ref.png" Padding="20" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="2" x:Name="EconomButton" Clicked="EconomButton_Click" BackgroundColor="DarkGreen" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
-                            <ImageButton Source="Bui_Car_Ref.png" Padding="20" Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="2" x:Name="BusinessButton" Clicked="BusinessButton_Click" BackgroundColor="#2D2DDF" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
-                            <ImageButton Source="Comf_Car_Ref.png" Padding="20" Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="2"  x:Name="ComfortButton" Clicked="ComfortButton_Click" BackgroundColor="#BE8F56" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
-                            <Label Grid.Column="0" Grid.ColumnSpan="2" Text="Эконом" TextColor="White" FontSize="15" HorizontalTextAlignment="Center" Margin="-5,-3,0,0" InputTransparent="True"/>
-                            <Label Grid.Column="2" Grid.ColumnSpan="2" Text="Комфорт" TextColor="White" FontSize="15" HorizontalTextAlignment="Center" Margin="-5,-3,0,0" InputTransparent="True"/>
-                            <Label Grid.Column="4" Grid.ColumnSpan="2" Text="Business" TextColor="White" FontSize="15" HorizontalTextAlignment="Center" Margin="-5,-3,0,0" InputTransparent="True"/>
-                            <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Eco_PickerDelay" Text="" TextColor="White" FontSize="12" HorizontalTextAlignment="Center" Margin="-5,0,0,0" InputTransparent="True"/>
-                            <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Comf_PickerDelay" Text="" TextColor="White" FontSize="12" HorizontalTextAlignment="Center" Margin="-5,0,0,0" InputTransparent="True"/>
-                            <Label Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Bui_PickerDelay" Text="" TextColor="White" FontSize="12" HorizontalTextAlignment="Center" Margin="-5,0,0,0" InputTransparent="True"/>
+                            <ImageButton BorderWidth="2" BorderColor="{StaticResource SecondColor}" Source="Eco_Car_Ref.png" Padding="20" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="2" x:Name="EconomButton" Clicked="EconomButton_Click" BackgroundColor="{StaticResource SecondColor}" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
+                            <ImageButton BorderWidth="2" BorderColor="{StaticResource SecondColor}" Source="Bui_Car_Ref.png" Padding="20" Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="2" x:Name="BusinessButton" Clicked="BusinessButton_Click" BackgroundColor="{StaticResource SecondColor}" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
+                            <ImageButton BorderWidth="2" BorderColor="{StaticResource SecondColor}" Source="Comf_Car_Ref.png" Padding="20" Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="2"  x:Name="ComfortButton" Clicked="ComfortButton_Click" BackgroundColor="{StaticResource SecondColor}" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
+                            <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Eco_PickerDelay" Text="" TextColor="{StaticResource TextColorStandart}" FontSize="12" HorizontalTextAlignment="Center" Margin="-5,0,0,0" InputTransparent="True"/>
+                            <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Comf_PickerDelay" Text="" TextColor="{StaticResource TextColorStandart}" FontSize="12" HorizontalTextAlignment="Center" Margin="-5,0,0,0" InputTransparent="True"/>
+                            <Label Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Bui_PickerDelay" Text="" TextColor="{StaticResource TextColorStandart}" FontSize="12" HorizontalTextAlignment="Center" Margin="-5,0,0,0" InputTransparent="True"/>
                         </Grid>
                     </AbsoluteLayout>
                 </Frame>
-                <Frame CornerRadius="20" HeightRequest="100" Margin="0,-40,0,0" BackgroundColor="White">
+                <Frame CornerRadius="20" HeightRequest="100" Margin="0,-40,0,0" BackgroundColor="{StaticResource SecondColor}">
                     <AbsoluteLayout>
                         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                             <Grid.ColumnDefinitions>
@@ -125,11 +151,11 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="50"/>
                             </Grid.ColumnDefinitions>
-                            <Label TextColor="DimGray" FontFamily="Consola" FontSize="22" Grid.Column="1" Grid.ColumnSpan="1" Text="Водитель прибудет через 3 минуты" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+                            <Label TextColor="{StaticResource TextColorStandart}" FontFamily="Consola" FontSize="22" Grid.Column="1" Grid.ColumnSpan="1" Text="Водитель прибудет через 3 минуты" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
                         </Grid>
                     </AbsoluteLayout>
                 </Frame>
-                <Frame CornerRadius="20" HeightRequest="80" Margin="0,-50,0,-20" BackgroundColor="DimGray">
+                <Frame CornerRadius="20" HeightRequest="80" Margin="0,-50,0,-20" BackgroundColor="{StaticResource ThirdColor}">
                     <AbsoluteLayout>
                         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                             <Grid.ColumnDefinitions>
@@ -137,7 +163,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="50"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="OrderGoButton" FontSize="25" WidthRequest="362" HeightRequest="75" Margin="0,-5,0,0" CornerRadius="20" BackgroundColor="DarkGray" TextColor="White" Grid.Column="0" Grid.ColumnSpan="3" Text="Заказать" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
+                            <Button x:Name="OrderGoButton" FontSize="25" WidthRequest="362" HeightRequest="75" Margin="0,-5,0,0" CornerRadius="20" BackgroundColor="{StaticResource BaseColor}" TextColor="{StaticResource TextColorStandart}" Grid.Column="0" Grid.ColumnSpan="3" Text="Заказать" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
                         </Grid>
                     </AbsoluteLayout>
                 </Frame>

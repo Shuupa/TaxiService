@@ -1,7 +1,6 @@
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
-using Xamarin.Essentials;
 using System;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Taxio
 {
-    public class CarsV2
+    public class CarsV3
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
