@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
 using System.IO;
-using Xamarin.Essentials;
+using Xamarin.Forms.Maps;
+using System.Drawing;
 namespace Taxio
 {
     public partial class MainPage : ContentPage
     {
+        //Theme
         //DB CONNECTION
         private static DB database;
 
@@ -31,6 +33,7 @@ namespace Taxio
             var u = await MainPage.Database.GetUsers();
             USER_ID.Text = Convert.ToString("ID: " + u.FirstOrDefault().User_id);
             USERNAME.Text = Convert.ToString(u.FirstOrDefault().User_name);
+            RightsPolicy.Text = "Copyright ©. All rights reserved";
         }
 
         //ADRESS
@@ -51,7 +54,9 @@ namespace Taxio
         private void FlyoutMenu_Click(object sender, EventArgs e)
         {
             menuLayout.IsVisible = !menuLayout.IsVisible;
+            Menuframe.IsVisible = !Menuframe.IsVisible;
         }
+           
         public MainPage()
         {
             InitializeComponent();
@@ -61,7 +66,6 @@ namespace Taxio
         // This method contains 2 adress and calculate distance for A to B
         private double GetDistanceATOB()
         {
-            double PlanetRAD = 6371; //km
 
             double distance = 25;
             return distance;
