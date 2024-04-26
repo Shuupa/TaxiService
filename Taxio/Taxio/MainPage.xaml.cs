@@ -33,6 +33,7 @@ namespace Taxio
             var u = await MainPage.Database.GetUsers();
             USER_ID.Text = Convert.ToString("ID: " + u.FirstOrDefault().User_id);
             USERNAME.Text = Convert.ToString(u.FirstOrDefault().User_name);
+            var order = await MainPage.Database.GetOrderDAT();
             RightsPolicy.Text = "Copyright ©. All rights reserved";
         }
 
@@ -56,7 +57,7 @@ namespace Taxio
             menuLayout.IsVisible = !menuLayout.IsVisible;
             Menuframe.IsVisible = !Menuframe.IsVisible;
         }
-           
+
         public MainPage()
         {
             InitializeComponent();
@@ -66,7 +67,6 @@ namespace Taxio
         // This method contains 2 adress and calculate distance for A to B
         private double GetDistanceATOB()
         {
-
             double distance = 25;
             return distance;
         }
@@ -123,8 +123,9 @@ namespace Taxio
             DriverNamenCar.Text = Convert.ToString(c.ElementAt(carindex).Driver_name + " / " + c.ElementAt(carindex).car_vendors);
             Car_GosNum.Text = Convert.ToString(c.ElementAt(carindex).Car_Gos);
             carindex = 0;
-            indexfinder = null;
+            indexfinder = null;   
         }
+
         // Method take several methods to write distance, time to travel and price
         private void _ORDER_OPTION(int rate)
         {
@@ -134,23 +135,57 @@ namespace Taxio
             OrderPrice.Text = Convert.ToString("Цена: " + PriceCalculation(rate) + " ₽");
         }
         //LOGIC
+        private int OrderClass;
         private void EconomButton_Click(object sender, EventArgs e)
         {
             int rate = 1;
             _RatePicker(rate);
             _ORDER_OPTION(rate);
+            OrderClass = 1;
         }
         private void BusinessButton_Click(object sender, EventArgs e)
         {
             int rate = 3;
             _RatePicker(rate);
             _ORDER_OPTION(rate);
+            OrderClass = 1;
         }
         private void ComfortButton_Click(object sender, EventArgs e)
         {
             int rate = 2;
             _RatePicker(rate);
             _ORDER_OPTION(rate);
+            OrderClass = 1;
+        }
+        private async void OrderConfirm_Click(object sender, EventArgs e)
+        {
+            double distance = GetDistanceATOB();
+            string OrderClassTXT = "";
+            var order = await MainPage.database.GetOrderDAT();
+            string Adress_A = PosRN_Search_AdressTo.Text + ".";
+            string Adress_B = PosRN_Search_AdressTo.Text + ".";
+            int Id = Convert.ToInt32(order.Last().ID) + 1;
+            switch (OrderClass)
+            {
+                case 1:
+                    OrderClassTXT = "Эконом";
+                    break;
+                case 2:
+                    OrderClassTXT = "Комфорт";
+                    break;
+                case 3:
+                    OrderClassTXT = "Бизнес";
+                    break;
+            }
+            if (Adress_A.Length < 2 && Adress_B.Length < 2)
+            {
+                await DisplayAlert("Ошибка", "Не все данные введены.", "Продолжить");
+            }
+            else
+            {    
+                new OrderData {ID = Id, Adress_A_B = $"{Adress_A} / {Adress_B}", OrderClass = OrderClassTXT, Distance = TimeToTravel.Text, Price = OrderPrice.Text, Gos_Car = Car_GosNum.Text, Driver_Name_Car = DriverNamenCar.Text};
+                
+            }
         }
     }
 }

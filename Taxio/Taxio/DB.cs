@@ -1,9 +1,6 @@
 ﻿using SQLite;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
 using System.Threading.Tasks;
 using Taxio.Models;
 
@@ -19,9 +16,22 @@ namespace Taxio
             database.CreateTableAsync<User>().Wait();
             database.CreateTableAsync<CarsV3>().Wait();
             database.CreateTableAsync<Car_vendorV2>().Wait();
-
+            database.CreateTableAsync<OrderData>().Wait();
         }
 
+        public async Task<List<OrderData>> GetOrderDAT()
+        {
+            var orderdata = await database.Table<OrderData>().ToListAsync();
+            if (!orderdata.Any())
+            {
+                await database.InsertAllAsync(new OrderData[]
+                {
+                    new OrderData{ID = 0, Adress_A_B = "NULL", Distance = "NULL", Driver_Name_Car = "NULL", Gos_Car = "NULL", OrderClass = "NULL", Price = "NULL"}
+                });
+                return await database.Table<OrderData>().ToListAsync();
+            }
+            return orderdata;
+        }
         public async Task<List<User>> GetUsers()
         {
             var user = await database.Table<User>().ToListAsync();
