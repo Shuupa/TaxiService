@@ -171,7 +171,7 @@ namespace Taxio
                 if (DateTime.Now.Hour == DateTime.Now.Hour && minutedate == DateTime.Now.Minute)
                 {
                     Device.BeginInvokeOnMainThread(() => TimeToGO.Text = "Водитель на месте!");
-                    DependencyService.Get<INotificationService>().ShowNotification("Время уехать!", "Прибытие в 5 минут");
+                    DependencyService.Get<INotificationService>().ShowNotification("Водитель на месте!", "Водитель на месте!");
                     return false; // Останавливаем таймер после изменения значения
                 }
                 else
@@ -270,7 +270,6 @@ namespace Taxio
         }
         private async void OrderConfirm_Click(object sender, EventArgs e)
         {
-            TimeToGo();
             string OrderClassTXT = "";
             var order = await MainPage.database.GetOrderDAT();
             string Adress_A = PosRN_Search_AdressTo.Text + ".";
@@ -288,12 +287,13 @@ namespace Taxio
                     OrderClassTXT = "Бизнес";
                     break;
             }
-            if (Adress_A.Length < 2 && Adress_B.Length < 2)
+            if (Adress_A.Length < 2 || Adress_B.Length < 2 || OrderPrice.Text == "")
             {
                 await DisplayAlert("Ошибка", "Не все данные введены.", "Продолжить");
             }
             else
-            {    
+            {
+                TimeToGo();
                 new OrderData {ID = Id, Adress_A_B = $"{Adress_A} / {Adress_B}", OrderClass = OrderClassTXT, Distance = TimeToTravel.Text, Price = OrderPrice.Text, Gos_Car = Car_GosNum.Text, Driver_Name_Car = DriverNamenCar.Text};
             }
         }
