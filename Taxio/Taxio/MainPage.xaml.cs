@@ -5,6 +5,10 @@ using Xamarin.Forms;
 using System.IO;
 using Xamarin.Forms.Maps;
 using System.Drawing;
+using System.Net;
+using System.Threading;
+using System.Timers;
+using System.Threading.Tasks;
 namespace Taxio
 {
     public partial class MainPage : ContentPage
@@ -40,9 +44,102 @@ namespace Taxio
         //ADRESS
         private readonly List<string> _Adress = new List<string>
         {
-            "Фрунзецкая,Д.12","М.Жукова,22","Васильева,4"
+            "Фрунзецкая,Д.1","Фрунзецкая,Д.2","Фрунзецкая,Д.3","Фрунзецкая,Д.4","Фрунзецкая,Д.5","Фрунзецкая,Д.6","Фрунзецкая,Д.7","Фрунзецкая,Д.8","Фрунзецкая,Д.9","Фрунзецкая,Д.10","Дом советов,10"
         };
-        private void PosRN_Search_OnSearchButtonPressed(object sender, EventArgs e)
+        private string Adresss1;
+        private string Adresss2;
+        private double distance;
+        private void AdressDistance()
+        {
+            int[,] distances = new int[,]
+            {
+                {0,100,200,300,400,500,600,700,800,900,1000}, // Расстояние от Фрунзецкая.Д.1 до всех адресов
+                {100,0,100,200,300,400,500,600,700,800,900 }, // Расстояние от Фрунзецкая.Д.2 до всех адресов
+                {200,100,0,100,200,300,400,500,600,700,800 }, // Расстояние от Фрунзецкая.Д.3 до всех адресов
+                {300,200,100,0,100,200,300,400,500,600,700}, // Расстояние от Фрунзецкая.Д.4 до всех адресов
+                {400,300,200,100,0,100,200,300,400,500,600}, // Расстояние от Фрунзецкая.Д.5 до всех адресов
+                {500,400,300,200,100,0,100,200,300,400,500}, // Расстояние от Фрунзецкая.Д.6 до всех адресов
+                {600,500,400,300,200,100,0,100,200,300,400 }, // Расстояние от Фрунзецкая.Д.7 до всех адресов
+                {700,600,500,400,300,200,100,0,100,200,300 }, // Расстояние от Фрунзецкая.Д.8 до всех адресов
+                {800,700,600,500,400,300,200,100,0,100,200 }, // Расстояние от Фрунзецкая.Д.9 до всех адресов
+                {900,800,700,600,500,400,300,200,100,0,100}, // Расстояние от Фрунзецкая.Д.10 до всех адресов
+                {1000,900,800,700,600,500,400,300,200,100,0}, // Расстояние от Дом советов.10 до всех адресов
+            };
+            int index1 = _Adress.IndexOf(Adresss1);
+            int index2 = _Adress.IndexOf(Adresss2);
+            if (index1 != -1 && index2 != -1)
+            {
+                // Получаем расстояние между выбранными адресами из массива distances
+                distance = distances[index1, index2];
+
+                // Выводим расстояние в консоль
+                Console.WriteLine($"Расстояние между адресами {Adresss1} и {Adresss2}: {distance} м.");
+                checkerSost(distance);
+            }
+            else
+            {
+                Console.WriteLine("Ошибка: Один из выбранных адресов отсутствует в массиве расстояний.");
+            }
+        }
+        private string getadress1(string selectedAdress)
+        {
+            Adresss1 = selectedAdress;
+            return Adresss1;
+        }
+        private string getadress2(string selectedAdress)
+        {
+            Adresss2 = selectedAdress;
+            return Adresss2;
+        }
+        private void checkerSost(double distance)
+        {
+            if (Adresss1 != null && Adresss2 != null)
+            {
+                TimeToTravel.Text = $"В пути: {DistanceTimeMath()} мин. | Путь: {Convert.ToString(distance)} м.";
+                DriverNamenCar.Text = "";
+                Car_GosNum.Text = "";
+                OrderPrice.Text = "";
+            }
+        }
+        private async void OnSearchBarFocused(object sender, FocusEventArgs e)
+        {
+            var searchBar = (SearchBar)sender;
+            var selectedAddress = await DisplayActionSheet("Выберите адрес", "Отмена", null, _Adress.ToArray());
+            if (selectedAddress != "Отмена") // пользователь выбрал адрес
+            {
+                searchBar.Text = selectedAddress;
+                getadress1(selectedAddress);
+            }
+            if (PosRN_Search_AdressTo.Text == null)
+            {
+                DriverNamenCar.Text = "";
+                Car_GosNum.Text = "";
+                OrderPrice.Text = "";
+                TimeToTravel.Text = "";
+            }
+            AdressDistance();
+            searchBar.Unfocus(); // снятие фокуса с SearchBar для закрытия клавиатуры
+        }
+        private async void OnSearchBarFocused2(object sender, FocusEventArgs e)
+        {
+            var searchBar = (SearchBar)sender;
+            var selectedAddress = await DisplayActionSheet("Выберите адрес", "Отмена", null, _Adress.ToArray());
+            if (selectedAddress != "Отмена") // пользователь выбрал адрес
+            {
+                searchBar.Text = selectedAddress;
+                getadress2(selectedAddress);
+            }
+            if (PosRN_Search_AdressToGo.Text == null)
+            {
+                DriverNamenCar.Text = "";
+                Car_GosNum.Text = "";
+                OrderPrice.Text = "";
+                TimeToTravel.Text = "";
+            }
+            AdressDistance();
+            searchBar.Unfocus(); // снятие фокуса с SearchBar для закрытия клавиатуры
+        }
+        private async void  PosRN_Search_OnSearchButtonPressed(object sender, EventArgs e)
         {
         }
         private void PosRN_Search_OnSearchButtonPressed2(object sender, EventArgs e)
@@ -64,24 +161,39 @@ namespace Taxio
         }
         //CALCULATIONS
 
-        // This method contains 2 adress and calculate distance for A to B
-        private double GetDistanceATOB()
+        private void TimeToGo()
         {
-            double distance = 25;
-            return distance;
+            int minutes = 1;
+            int minutedate = DateTime.Now.Minute + minutes;
+            TimeToGO.Text = $"Водитель прибудет в:  {DateTime.Now.Hour} : {(DateTime.Now.Minute + minutes).ToString("00")}";
+            Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+            {
+                if (DateTime.Now.Hour == DateTime.Now.Hour && minutedate == DateTime.Now.Minute)
+                {
+                    Device.BeginInvokeOnMainThread(() => TimeToGO.Text = "Водитель на месте!");
+                    DependencyService.Get<INotificationService>().ShowNotification("Время уехать!", "Прибытие в 5 минут");
+                    return false; // Останавливаем таймер после изменения значения
+                }
+                else
+                {
+                    return true; // Продолжаем запускать таймер
+                }
+            });
+        }
+        public interface INotificationService
+        {
+            Task ShowNotification(string title, string message);
         }
         // This calculate time to travel
         private double DistanceTimeMath()
         {
-            double distance = GetDistanceATOB();
-            double kmtime = 1.50;
-            double TimeToPass = distance * kmtime;
+            double mtime = 0.0010;
+            double TimeToPass = distance * mtime;
             return TimeToPass;
         }
         // This shit calculate price XD
         private double PriceCalculation(int rate)
         {
-            double distance = GetDistanceATOB();
             double ratemultipler = 0;
             double km = 0;
             switch (rate)
@@ -99,7 +211,7 @@ namespace Taxio
                     ratemultipler = 2.33;
                     break;
             }
-            double PriceMath = distance * km * ratemultipler;
+            double PriceMath = Math.Round(distance * km * ratemultipler / 1000);
             return PriceMath;
         }
         // Method returns Driver name, car name and gos num
@@ -129,12 +241,11 @@ namespace Taxio
         // Method take several methods to write distance, time to travel and price
         private void _ORDER_OPTION(int rate)
         {
-            TimeToTravel.Text = "";
-            TimeToTravel.Text = Convert.ToString("В пути: " + GetDistanceATOB() + " Км" + " / " + DistanceTimeMath() + " Минут");
             OrderPrice.Text = "";
             OrderPrice.Text = Convert.ToString("Цена: " + PriceCalculation(rate) + " ₽");
         }
         //LOGIC
+        private static System.Timers.Timer timer;
         private int OrderClass;
         private void EconomButton_Click(object sender, EventArgs e)
         {
@@ -159,7 +270,7 @@ namespace Taxio
         }
         private async void OrderConfirm_Click(object sender, EventArgs e)
         {
-            double distance = GetDistanceATOB();
+            TimeToGo();
             string OrderClassTXT = "";
             var order = await MainPage.database.GetOrderDAT();
             string Adress_A = PosRN_Search_AdressTo.Text + ".";
@@ -184,7 +295,6 @@ namespace Taxio
             else
             {    
                 new OrderData {ID = Id, Adress_A_B = $"{Adress_A} / {Adress_B}", OrderClass = OrderClassTXT, Distance = TimeToTravel.Text, Price = OrderPrice.Text, Gos_Car = Car_GosNum.Text, Driver_Name_Car = DriverNamenCar.Text};
-                
             }
         }
     }

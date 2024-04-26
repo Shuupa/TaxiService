@@ -3,7 +3,12 @@ using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
-
+using Android.Widget;
+using static Taxio.MainPage;
+using System.Threading.Tasks;
+using Taxio.Droid;
+using Xamarin.Forms;
+[assembly: Dependency(typeof(NotificationService))]
 namespace Taxio.Droid
 {
     [Activity(Label = "Taxio", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
@@ -22,6 +27,13 @@ namespace Taxio.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+    public class NotificationService : INotificationService
+    {
+        public async Task ShowNotification(string title, string message)
+        {
+            Toast.MakeText(Android.App.Application.Context, message, ToastLength.Long).Show();
         }
     }
 }
