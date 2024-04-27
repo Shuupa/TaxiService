@@ -74,10 +74,11 @@ namespace Taxio
 
                 // Выводим расстояние в консоль
                 Console.WriteLine($"Расстояние между адресами {Adresss1} и {Adresss2}: {distance} м.");
-                checkerSost(distance);
+                checkerSost();
             }
             else
             {
+                checkerSost();
                 Console.WriteLine("Ошибка: Один из выбранных адресов отсутствует в массиве расстояний.");
             }
         }
@@ -91,11 +92,64 @@ namespace Taxio
             Adresss2 = selectedAdress;
             return Adresss2;
         }
-        private void checkerSost(double distance)
+        private void checkerSost()
         {
             if (Adresss1 != null && Adresss2 != null)
             {
+                FrameAdress.HeightRequest = 400;
+                Grid.SetRow(AdressLayout, 1);
+                Grid.SetRow(PosRN_Search_AdressToGo, 3);
+                Grid.SetRow(SecondadressFrame, 3);
+                Grid.SetRow(Entry2, 2);
+                Grid.SetRowSpan(Entry1,1);
+                Grid.SetRowSpan(FirstadressFrame, 1);
+                Grid.SetRowSpan(PosRN_Search_AdressTo, 1);
+                Grid.SetRowSpan(Entry2, 1);
+                Grid.SetRowSpan(SecondadressFrame, 1);
+                Grid.SetRowSpan(PosRN_Search_AdressToGo, 1);
+                TimeToTravel.IsVisible = true;
+                TimeToTravel.IsEnabled = true;
+                DriverNamenCar.IsVisible = true;
+                DriverNamenCar.IsEnabled = true;
+                OrderPrice.IsVisible = true;
+                OrderPrice.IsEnabled = true;
+                GosNumFrame.IsVisible = true;
+                GosNumFrame.IsEnabled = true;
+                Car_GosNum.IsVisible = true;
+                Car_GosNum.IsEnabled = true;
+                GoMenuLayout.IsVisible = true;
+                GoMenuLayout.IsEnabled = true;
                 TimeToTravel.Text = $"В пути: {DistanceTimeMath()} мин. | Путь: {Convert.ToString(distance)} м.";
+                DriverNamenCar.Text = "";
+                Car_GosNum.Text = "";
+                OrderPrice.Text = "";
+            }
+            else
+            {
+                FrameAdress.HeightRequest = 200;
+                Grid.SetRow(AdressLayout, 5);
+                Grid.SetRow(PosRN_Search_AdressToGo, 5);
+                Grid.SetRow(SecondadressFrame, 5);
+                Grid.SetRow(Entry2, 4);
+                Grid.SetRowSpan(Entry1, 2);
+                Grid.SetRowSpan(FirstadressFrame, 2);
+                Grid.SetRowSpan(PosRN_Search_AdressTo, 2);
+                Grid.SetRowSpan(Entry2, 2);
+                Grid.SetRowSpan(SecondadressFrame, 2);
+                Grid.SetRowSpan(PosRN_Search_AdressToGo, 2);
+                TimeToTravel.IsVisible = false;
+                TimeToTravel.IsEnabled = false;
+                DriverNamenCar.IsVisible = false;
+                DriverNamenCar.IsEnabled = false;
+                OrderPrice.IsVisible = false;
+                OrderPrice.IsEnabled = false;
+                GosNumFrame.IsVisible = false;
+                GosNumFrame.IsEnabled = false;
+                Car_GosNum.IsVisible = false;
+                Car_GosNum.IsEnabled = false;
+                GoMenuLayout.IsVisible = false;
+                GoMenuLayout.IsEnabled = false;
+                TimeToTravel.Text = "";
                 DriverNamenCar.Text = "";
                 Car_GosNum.Text = "";
                 OrderPrice.Text = "";
@@ -109,6 +163,7 @@ namespace Taxio
             {
                 searchBar.Text = selectedAddress;
                 getadress1(selectedAddress);
+                AdressDistance();
             }
             if (PosRN_Search_AdressTo.Text == null)
             {
@@ -116,8 +171,8 @@ namespace Taxio
                 Car_GosNum.Text = "";
                 OrderPrice.Text = "";
                 TimeToTravel.Text = "";
+                AdressDistance();
             }
-            AdressDistance();
             searchBar.Unfocus(); // снятие фокуса с SearchBar для закрытия клавиатуры
         }
         private async void OnSearchBarFocused2(object sender, FocusEventArgs e)
@@ -128,25 +183,32 @@ namespace Taxio
             {
                 searchBar.Text = selectedAddress;
                 getadress2(selectedAddress);
+                AdressDistance();
             }
             if (PosRN_Search_AdressToGo.Text == null)
             {
+                PosRN_Search_AdressToGo.Text = "";
                 DriverNamenCar.Text = "";
                 Car_GosNum.Text = "";
                 OrderPrice.Text = "";
                 TimeToTravel.Text = "";
+                AdressDistance();
             }
-            AdressDistance();
             searchBar.Unfocus(); // снятие фокуса с SearchBar для закрытия клавиатуры
         }
-        private async void  PosRN_Search_OnSearchButtonPressed(object sender, EventArgs e)
+        private void OnSearchBarUnFocused(object sender, EventArgs e)
+        {
+            PriceWithoutClass();
+        }
+        private void OnSearchBarUnFocused2(object sender, EventArgs e)
+        {
+            PriceWithoutClass();
+        }
+        private void  PosRN_Search_OnSearchButtonPressed(object sender, EventArgs e)
         {
         }
         private void PosRN_Search_OnSearchButtonPressed2(object sender, EventArgs e)
         {
-            string keyword = PosRN_Search_AdressToGo.Text;
-
-            IEnumerable<string> searchResult = _Adress.Where(adress => adress.ToLower().Contains(keyword.ToLower()));
         }
         //MENU
         private void FlyoutMenu_Click(object sender, EventArgs e)
@@ -160,7 +222,13 @@ namespace Taxio
             InitializeComponent();
         }
         //CALCULATIONS
-
+        private void PriceWithoutClass ()
+        {
+            int[,] rate = new int[,]{ { 1, 2, 3 } };
+            Eco_PickerPrice.Text = PriceCalculation(rate[0, 0]).ToString() + " ₽";
+            Comf_PickerPrice.Text = PriceCalculation(rate[0, 1]).ToString() + " ₽";
+            Bui_PickerPrice.Text = PriceCalculation(rate[0, 2]).ToString() + " ₽";
+        }
         private void TimeToGo()
         {
             int minutes = 1;

@@ -57,8 +57,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <ImageButton x:Name="FlyoutMenu" Clicked="FlyoutMenu_Click" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Source="Profile.png" CornerRadius="50" Margin="10,10,0,0" HorizontalOptions="Start" BackgroundColor="DimGray"/>
-            <StackLayout Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="8" >
-                <Frame BackgroundColor="{StaticResource SecondColor}" HeightRequest="400" CornerRadius="30">
+            <StackLayout x:Name="AdressLayout" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="7" Grid.RowSpan="8" >
+                <Frame x:Name="FrameAdress" BackgroundColor="{StaticResource SecondColor}" HeightRequest="200" CornerRadius="30">
                     <AbsoluteLayout>
                         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                             <Grid.ColumnDefinitions>
@@ -76,19 +76,19 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="Entry1" FontFamily="Times new roman" FontAttributes="{StaticResource DefaultBold}" TextColor="{StaticResource TextColorStandart}" Text="Адрес подачи:" HorizontalOptions="Start"/>
-                            <Frame Grid.Row="1" Grid.ColumnSpan="5" HorizontalOptions="FillAndExpand" CornerRadius="15" BackgroundColor="DarkSlateGray"/>
-                            <SearchBar x:Name="PosRN_Search_AdressTo" Focused="OnSearchBarFocused" Grid.Row="1" CancelButtonColor="{StaticResource TextColorStandart}" TextColor="{StaticResource TextColorStandart}"  PlaceholderColor="{StaticResource ThirdColor}" Grid.Column="0" Grid.ColumnSpan="5" FontSize="12" SearchButtonPressed="PosRN_Search_OnSearchButtonPressed" IsEnabled="True" Placeholder="Введите адрес..."/>
-                            <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" TextColor="{StaticResource TextColorStandart}" Text="Адрес прибытия:"/>
-                            <Frame Grid.Row="3" Grid.ColumnSpan="5" BackgroundColor="DarkSlateGray" HorizontalOptions="FillAndExpand" CornerRadius="15">
+                            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="Entry1" FontAttributes="{StaticResource DefaultBold}" TextColor="{StaticResource TextColorStandart}" Text="Адрес подачи:" HorizontalOptions="Start"/>
+                            <Frame x:Name="FirstadressFrame" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="5" HorizontalOptions="FillAndExpand" CornerRadius="15" BackgroundColor="DarkSlateGray"/>
+                            <SearchBar Unfocused="OnSearchBarUnFocused" x:Name="PosRN_Search_AdressTo" Focused="OnSearchBarFocused" Grid.RowSpan="2" Grid.Row="1" CancelButtonColor="{StaticResource TextColorStandart}" TextColor="{StaticResource TextColorStandart}"  PlaceholderColor="{StaticResource ThirdColor}" Grid.Column="0" Grid.ColumnSpan="5" FontSize="12" SearchButtonPressed="PosRN_Search_OnSearchButtonPressed" IsEnabled="True" Placeholder="Введите адрес..."/>
+                            <Label x:Name="Entry2" Grid.Column="0" Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="3" TextColor="{StaticResource TextColorStandart}" Text="Адрес прибытия:"/>
+                            <Frame x:Name="SecondadressFrame" Grid.Row="5" Grid.ColumnSpan="5" Grid.RowSpan="2" BackgroundColor="DarkSlateGray" HorizontalOptions="FillAndExpand" CornerRadius="15">
                             </Frame>
-                            <SearchBar x:Name="PosRN_Search_AdressToGo" Focused="OnSearchBarFocused2" Grid.Row="3" CancelButtonColor="{StaticResource TextColorStandart}" TextColor="{StaticResource TextColorStandart}"  PlaceholderColor="{StaticResource ThirdColor}" Grid.Column="0" Grid.ColumnSpan="5" FontSize="12" SearchButtonPressed="PosRN_Search_OnSearchButtonPressed2" IsEnabled="True" Placeholder="Введите адрес..."/>
-                            <Label x:Name="TimeToTravel" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5" TextColor="{StaticResource TextColorStandart}" Text="" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-                            <Label x:Name="DriverNamenCar" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" TextColor="{StaticResource TextColorStandart}" Text="" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-                            <Label x:Name="OrderPrice" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="5" TextColor="{StaticResource TextColorStandart}"  Text="" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-                            <Frame Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" BorderColor="DimGray" CornerRadius="10">
+                            <SearchBar Unfocused="OnSearchBarUnFocused2" x:Name="PosRN_Search_AdressToGo" Focused="OnSearchBarFocused2" Grid.RowSpan="2" Grid.Row="5" CancelButtonColor="{StaticResource TextColorStandart}" TextColor="{StaticResource TextColorStandart}"  PlaceholderColor="{StaticResource ThirdColor}" Grid.Column="0" Grid.ColumnSpan="5" FontSize="12" SearchButtonPressed="PosRN_Search_OnSearchButtonPressed2" IsEnabled="True" Placeholder="Введите адрес..."/>
+                            <Label IsEnabled="False" IsVisible="false" x:Name="TimeToTravel" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5" TextColor="{StaticResource TextColorStandart}" Text="" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                            <Label IsEnabled="False" IsVisible="false" x:Name="DriverNamenCar" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5" TextColor="{StaticResource TextColorStandart}" Text="" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                            <Label IsEnabled="False" IsVisible="false" x:Name="OrderPrice" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="5" TextColor="{StaticResource TextColorStandart}"  Text="" FontSize="16" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                            <Frame IsEnabled="False" IsVisible="false" x:Name="GosNumFrame" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" BorderColor="DimGray" CornerRadius="10">
                             </Frame>
-                            <Label x:Name="Car_GosNum" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" TextColor="Black"  TextTransform="Uppercase" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="24"/>
+                            <Label IsEnabled="False" IsVisible="false" x:Name="Car_GosNum" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" TextColor="Black"  TextTransform="Uppercase" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="24"/>
                             <StackLayout IsVisible="False" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Grid.RowSpan="8" x:Name="menuLayout" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="-10,-10,-10,-10">
                                 <Frame x:Name="Menuframe" IsVisible="False" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="20" Scale="1.07" BackgroundColor="{StaticResource FirstColor}">
                                     <Grid>
@@ -105,7 +105,6 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                             <RowDefinition/>
-                                            
                                         </Grid.RowDefinitions>
                                         <Frame CornerRadius="17" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="3" BackgroundColor="{StaticResource SecondColor}" Margin="-10,14,-10,0"/>
                                         <ImageButton Grid.Column="0" Grid.Row="0" Source="Profile.png" BackgroundColor="DimGray" IsEnabled="False" CornerRadius="50" VerticalOptions="Start" HorizontalOptions="Start"/>
@@ -123,11 +122,20 @@
                     </AbsoluteLayout>
                 </Frame>
             </StackLayout>
-            <StackLayout Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="9" Grid.RowSpan="6" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                <Frame CornerRadius="20" HeightRequest="100" Margin="0,10,0,0" BackgroundColor="{StaticResource FirstColor}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout x:Name="GoMenuLayout" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="9" Grid.RowSpan="6" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsEnabled="False" >
+                <Frame CornerRadius="20" HeightRequest="100" Margin="0,10,0,0" BackgroundColor="{StaticResource FirstColor}" HorizontalOptions="Fill">
                     <AbsoluteLayout>
                         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -140,12 +148,15 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <ImageButton BorderWidth="2" BorderColor="{StaticResource SecondColor}" Source="Eco_Car_Ref.png" Padding="20" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="2" x:Name="EconomButton" Clicked="EconomButton_Click" BackgroundColor="{StaticResource SecondColor}" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
-                            <ImageButton BorderWidth="2" BorderColor="{StaticResource SecondColor}" Source="Bui_Car_Ref.png" Padding="20" Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="2" x:Name="BusinessButton" Clicked="BusinessButton_Click" BackgroundColor="{StaticResource SecondColor}" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
-                            <ImageButton BorderWidth="2" BorderColor="{StaticResource SecondColor}" Source="Comf_Car_Ref.png" Padding="20" Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="2"  x:Name="ComfortButton" Clicked="ComfortButton_Click" BackgroundColor="{StaticResource SecondColor}" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
-                            <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Eco_PickerDelay" Text="" TextColor="{StaticResource TextColorStandart}" FontSize="12" HorizontalTextAlignment="Center" Margin="-5,0,0,0" InputTransparent="True"/>
-                            <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Comf_PickerDelay" Text="" TextColor="{StaticResource TextColorStandart}" FontSize="12" HorizontalTextAlignment="Center" Margin="-5,0,0,0" InputTransparent="True"/>
-                            <Label Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Bui_PickerDelay" Text="" TextColor="{StaticResource TextColorStandart}" FontSize="12" HorizontalTextAlignment="Center" Margin="-5,0,0,0" InputTransparent="True"/>
+                            <ImageButton BorderWidth="2" BorderColor="{StaticResource SecondColor}" Source="Eco_Car_Ref.png" Padding="10,0,37,30" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="7" x:Name="EconomButton" Clicked="EconomButton_Click" BackgroundColor="{StaticResource SecondColor}" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
+                            <ImageButton BorderWidth="2" BorderColor="{StaticResource SecondColor}" Source="Bui_Car_Ref.png" Padding="10,0,30,30" Grid.Column="15" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="8" x:Name="BusinessButton" Clicked="BusinessButton_Click" BackgroundColor="{StaticResource SecondColor}" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
+                            <ImageButton BorderWidth="2" BorderColor="{StaticResource SecondColor}" Source="Comf_Car_Ref.png" Padding="10,0,30,30" Grid.Column="7" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="8"  x:Name="ComfortButton" Clicked="ComfortButton_Click" BackgroundColor="{StaticResource SecondColor}" Margin="0,-10,0,20" CornerRadius="20" WidthRequest="90" HeightRequest="85" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
+                            <Label Text="Эконом" FontAttributes="Bold" FontSize="15" Padding="0,2,41,0" CharacterSpacing="2" Grid.RowSpan="2" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="8" HorizontalTextAlignment="Center" InputTransparent="True" TextColor="{StaticResource FirstColor}" />
+                            <Label Text="Комфорт" FontAttributes="Bold" FontSize="15" Padding="0,2,36,0" CharacterSpacing="1" Grid.RowSpan="2" Grid.Column="7" Grid.Row="1" Grid.ColumnSpan="8" HorizontalTextAlignment="Center" InputTransparent="True" TextColor="{StaticResource FirstColor}" />
+                            <Label Text="Bussines" FontAttributes="Bold" FontSize="15" Padding="0,2,36,0" CharacterSpacing="1" Grid.RowSpan="2" Grid.Column="15" Grid.Row="1" Grid.ColumnSpan="8" HorizontalTextAlignment="Center" InputTransparent="True" TextColor="{StaticResource FirstColor}" />
+                            <Label FontAttributes="Bold" Grid.Column="0" Grid.Row="2" Padding="0,-5,-27,0" Grid.ColumnSpan="2" x:Name="Eco_PickerPrice" Text="" TextColor="{StaticResource TextColorStandart}" FontSize="16" HorizontalTextAlignment="Center" InputTransparent="True"/>
+                            <Label FontAttributes="Bold" Grid.Column="7" Grid.Row="2" Padding="0,-5,4,0" Grid.ColumnSpan="4" x:Name="Comf_PickerPrice" Text="" TextColor="{StaticResource TextColorStandart}" FontSize="16" HorizontalTextAlignment="Center" InputTransparent="True"/>
+                            <Label FontAttributes="Bold" Grid.Column="15" Grid.Row="2" Padding="0,-5,3,0" Grid.ColumnSpan="4" x:Name="Bui_PickerPrice" Text="" TextColor="{StaticResource TextColorStandart}" FontSize="16" HorizontalTextAlignment="Center" InputTransparent="True"/>
                         </Grid>
                     </AbsoluteLayout>
                 </Frame>
@@ -163,14 +174,7 @@
                 </Frame>
                 <Frame CornerRadius="20" HeightRequest="80" Margin="0,-50,0,-20" BackgroundColor="{StaticResource ThirdColor}">
                     <AbsoluteLayout>
-                        <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50"/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="50"/>
-                            </Grid.ColumnDefinitions>
-                            <Button Clicked="OrderConfirm_Click" x:Name="OrderConfirm" FontSize="25" WidthRequest="362" HeightRequest="75" Margin="0,-5,0,0" CornerRadius="20" BackgroundColor="{StaticResource BaseColor}" TextColor="{StaticResource TextColorStandart}" Grid.Column="0" Grid.ColumnSpan="3" Text="Заказать" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
-                        </Grid>
+                        <Button Clicked="OrderConfirm_Click" x:Name="OrderConfirm" FontSize="25" WidthRequest="362" HeightRequest="75" Margin="0,-5,0,0" CornerRadius="20" BackgroundColor="{StaticResource BaseColor}" TextColor="{StaticResource TextColorStandart}" Grid.Column="0" Grid.ColumnSpan="3" Text="Заказать" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
                     </AbsoluteLayout>
                 </Frame>
             </StackLayout>
