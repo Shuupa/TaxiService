@@ -100,5 +100,10 @@
     <AndroidResource Include="Resources\drawable\Eco_car_ref.png" />
     <AndroidResource Include="Resources\drawable\Profile.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\MCCard100x100.png" />
+    <AndroidResource Include="Resources\drawable\MIRCard100x100.png" />
+    <AndroidResource Include="Resources\drawable\Nalichka100x100.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

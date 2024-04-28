@@ -153,6 +153,7 @@ namespace Taxio
                 DriverNamenCar.Text = "";
                 Car_GosNum.Text = "";
                 OrderPrice.Text = "";
+                OrderConfirm.IsEnabled = false;
             }
         }
         private async void OnSearchBarFocused(object sender, FocusEventArgs e)
@@ -311,28 +312,27 @@ namespace Taxio
         {
             OrderPrice.Text = "";
             OrderPrice.Text = Convert.ToString("Цена: " + PriceCalculation(rate) + " ₽");
+            OrderConfirm.IsEnabled = true;
         }
         //LOGIC
         private static System.Timers.Timer timer;
         private int OrderClass;
+        private int rate;
         private void EconomButton_Click(object sender, EventArgs e)
         {
-            int rate = 1;
-            _RatePicker(rate);
+            rate = 1;
             _ORDER_OPTION(rate);
             OrderClass = 1;
         }
         private void BusinessButton_Click(object sender, EventArgs e)
         {
-            int rate = 3;
-            _RatePicker(rate);
+            rate = 3;
             _ORDER_OPTION(rate);
             OrderClass = 1;
         }
         private void ComfortButton_Click(object sender, EventArgs e)
         {
-            int rate = 2;
-            _RatePicker(rate);
+            rate = 2;
             _ORDER_OPTION(rate);
             OrderClass = 1;
         }
@@ -361,9 +361,65 @@ namespace Taxio
             }
             else
             {
+                _RatePicker(rate);
                 TimeToGo();
                 new OrderData {ID = Id, Adress_A_B = $"{Adress_A} / {Adress_B}", OrderClass = OrderClassTXT, Distance = TimeToTravel.Text, Price = OrderPrice.Text, Gos_Car = Car_GosNum.Text, Driver_Name_Car = DriverNamenCar.Text};
             }
+        }
+        private int paymentclass = 3;
+        private void paymentoption()
+        {
+            switch(paymentclass)
+            {
+                case 1:
+                    MirButton.IsEnabled = false;
+                    MSButton.IsEnabled = true;
+                    NalButton.IsEnabled = true;
+                    MirButton.Margin = -5;
+                    NalButton.Margin = 0;
+                    MSButton.Margin = 0;
+                    break;
+                case 2:
+                    MSButton.IsEnabled = false;
+                    MirButton.IsEnabled = true;
+                    NalButton.IsEnabled = true;
+                    MSButton.Margin = -5;
+                    MirButton.Margin = 0;
+                    NalButton.Margin = 0;
+                    break;
+                case 3:
+                    NalButton.IsEnabled = false;
+                    MSButton.IsEnabled = true;
+                    MirButton.IsEnabled = true;
+                    NalButton.Margin = -5;
+                    MirButton.Margin = 0;
+                    MSButton.Margin = 0;
+                    break;
+            }
+        }
+        private void PayOptionBTN_Click(object sender, EventArgs e)
+        {
+            paymentoption();
+            PayoptionLayout.IsVisible = !PayoptionLayout.IsVisible;
+            PayoptionLayout.IsEnabled = !PayoptionLayout.IsEnabled;
+        }
+        private void MSButton_Click(object sender, EventArgs e)
+        {
+            paymentclass = 2;
+            paymentoption();
+            Payoption.Source = "MCCard100x100";
+        }
+        private void MIRButton_Click(object sender, EventArgs e)
+        {
+            paymentclass = 1;
+            paymentoption();
+            Payoption.Source = "MIRCard100x100";
+        }
+        private void NalButton_Click(object sender, EventArgs e)
+        {
+            paymentclass = 3;
+            paymentoption();
+            Payoption.Source = "Nalichka100x100";
         }
     }
 }

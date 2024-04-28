@@ -118,6 +118,23 @@
                                     </Grid>
                                 </Frame>
                             </StackLayout>
+                            <StackLayout x:Name="PayoptionLayout" IsVisible="False" IsEnabled="False"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Grid.RowSpan="8" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="-10,-10,-10,-10">
+                                <Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="23" BackgroundColor="{StaticResource FirstColor}">
+                                    <StackLayout>
+                                        <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/> 
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="Варианты оплаты" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalOptions="Center" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource TextColorStandart}"/>
+                                            <ImageButton x:Name="NalButton" Clicked="NalButton_Click" Source="Nalichka100x100" Grid.Column="0" Grid.Row="1" Grid.RowSpan="5" Padding="8" Margin="-5" VerticalOptions="Center" HorizontalOptions="Center" BorderWidth="3" BackgroundColor="{StaticResource SecondColor}" BorderColor="{StaticResource ThirdColor}" CornerRadius="50"/>
+                                            <ImageButton x:Name="MSButton" Clicked="MSButton_Click" Source="MCCard100x100" Grid.Column="0" Grid.Row="5" Grid.RowSpan="5" Margin="-5" Padding="8" VerticalOptions="Center" HorizontalOptions="Center" BorderWidth="3" BackgroundColor="{StaticResource SecondColor}" BorderColor="{StaticResource ThirdColor}" CornerRadius="50"/>
+                                            <ImageButton x:Name="MirButton" Clicked="MIRButton_Click" Source="MIRCard100x100" Grid.Column="0" Grid.Row="9" Grid.RowSpan="5" Padding="8" Margin="-5" VerticalOptions="Center" HorizontalOptions="Center" BorderWidth="3" BackgroundColor="{StaticResource SecondColor}" BorderColor="{StaticResource ThirdColor}" CornerRadius="50"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
                         </Grid>
                     </AbsoluteLayout>
                 </Frame>
@@ -174,7 +191,20 @@
                 </Frame>
                 <Frame CornerRadius="20" HeightRequest="80" Margin="0,-50,0,-20" BackgroundColor="{StaticResource ThirdColor}">
                     <AbsoluteLayout>
-                        <Button Clicked="OrderConfirm_Click" x:Name="OrderConfirm" FontSize="25" WidthRequest="362" HeightRequest="75" Margin="0,-5,0,0" CornerRadius="20" BackgroundColor="{StaticResource BaseColor}" TextColor="{StaticResource TextColorStandart}" Grid.Column="0" Grid.ColumnSpan="3" Text="Заказать" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"/>
+                        <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button IsEnabled="False" Clicked="OrderConfirm_Click" x:Name="OrderConfirm" FontSize="25" Grid.Column="0"  Grid.ColumnSpan="4" Margin="0,-5,0,0" CornerRadius="20" BackgroundColor="{StaticResource BaseColor}" TextColor="{StaticResource TextColorStandart}" Text="Заказать"/>
+                            <ImageButton x:Name="Payoption" Clicked="PayOptionBTN_Click" Source="Nalichka100x100" VerticalOptions="Center" BackgroundColor="{StaticResource SecondColor}" Grid.Column="4" Padding="6" BorderWidth="2" BorderColor="{StaticResource FirstColor}" CornerRadius="50"/>
+                        </Grid>
                     </AbsoluteLayout>
                 </Frame>
             </StackLayout>
