@@ -2,7 +2,7 @@
 
 namespace Taxio
 {
-    public class Car_vendorV2
+    public class Car_vendorV3
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }

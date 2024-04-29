@@ -2,7 +2,7 @@
 
 namespace Taxio
 {
-    public class CarsV3
+    public class CarsV4
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }

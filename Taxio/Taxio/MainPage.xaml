@@ -106,15 +106,39 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <Frame CornerRadius="17" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="3" BackgroundColor="{StaticResource SecondColor}" Margin="-10,14,-10,0"/>
+                                        <Frame CornerRadius="17" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="3" BackgroundColor="{StaticResource SecondColor}" Margin="-10,14,-10,0">
+                                            <AbsoluteLayout>
+                                                <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    
+                                                    <Label Text="Последний заказ:" TextColor="{StaticResource TextColorStandart}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Margin="-10"/>
+                                                    <ImageButton x:Name="OrderImage" IsEnabled="False" BorderWidth="2" BorderColor="{StaticResource SecondColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="5" Source="Eco_Car_Ref.png" BackgroundColor="{StaticResource FirstColor}" Padding="10,-35,30,0" Margin="-12,10,0,0" CornerRadius="17" WidthRequest="100" HorizontalOptions="Start" VerticalOptions="Center" HeightRequest="80" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
+                                                    <Label x:Name="OrderClas2" FontAttributes="Bold" FontSize="14" CharacterSpacing="2" TextColor="{StaticResource ThirdColor}" Grid.Column="0" Grid.RowSpan="3" Grid.Row="2" Grid.ColumnSpan="2" InputTransparent="True" Text="Эконом" Margin="-2,5,0,0"/>
+                                                    <Label x:Name="CostLastOrder"  FontAttributes="Bold" FontSize="14" TextColor="{StaticResource TextColorStandart}" Grid.Column="0" Grid.RowSpan="2" Grid.Row="3" Grid.ColumnSpan="2" InputTransparent="True" Text="102" Margin="-2,0,0,0"/>
+                                                    <Label x:Name="LastNameOfOrder" FontSize="11" MaxLines="2" TextColor="{StaticResource TextColorStandart}" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Text="Кириллин Никита Генадьевич" HorizontalTextAlignment="Start" VerticalTextAlignment="Start"/>
+                                                    <Label x:Name="AdressLastOrder" FontSize="11" Text="Ленина,Д.4 => Ленина,Д.8" TextColor="{StaticResource TextColorStandart}" Margin="0,0,0,-10" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="2" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                                                    <Label x:Name="OrderPaymentOption" FontSize="14" FontAttributes="Bold" CharacterSpacing="2" Text="Наличные" TextColor="{StaticResource TextColorStandart}" Margin="0,0,0,-10" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="2" HorizontalTextAlignment="End" VerticalTextAlignment="End"/>
+                                                    <Label x:Name="LastOrderId"  FontSize="10" CharacterSpacing="1" Text="ID: 10234124" TextColor="{StaticResource TextColorStandart}" Margin="-5,0,0,-10" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="2" HorizontalTextAlignment="Start" VerticalTextAlignment="End"/>
+                                                </Grid>
+                                            </AbsoluteLayout>
+                                        </Frame>
                                         <ImageButton Grid.Column="0" Grid.Row="0" Source="Profile.png" BackgroundColor="DimGray" IsEnabled="False" CornerRadius="50" VerticalOptions="Start" HorizontalOptions="Start"/>
                                         <Label x:Name="USER_ID" TextColor="{StaticResource TextColorStandart}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" Text="ID:8391248125792"/>
                                         <Label x:Name="USERNAME" TextColor="{StaticResource TextColorStandart}" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="Афонасьев Виктор Павлович"/>
                                         <Label x:Name="RightsPolicy" TextColor="{StaticResource TextColorStandart}" Text="" Grid.Column="0" VerticalOptions="End" HorizontalOptions="Center" Grid.ColumnSpan="4" Grid.Row="6" Opacity="0.45"/>
-                                        <Label Text="Последний заказ:" TextColor="{StaticResource TextColorStandart}" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" Margin="0,20,0,0"/>
-                                        <Image Source="Bui_Car_Ref.png"  Grid.Row="1" Grid.RowSpan="2" Scale="0.8"/>
-                                        <Label x:Name="LastNameOfOrder" TextColor="{StaticResource TextColorStandart}" Text="Ильиченко Борис Николаевич" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="2" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
-                                        <Label x:Name="OrderClasss" TextColor="{StaticResource TextColorStandart}" Text="Эконом" Grid.Row="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Start" Margin="0,10,0,0"/>
                                     </Grid>
                                 </Frame>
                             </StackLayout>
@@ -128,6 +152,9 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <Label Text="Варианты оплаты" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalOptions="Center" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource TextColorStandart}"/>
+                                            <Label Text="Оплата наличными. Водителю в руки" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" MaxLines="2" Grid.RowSpan="3" Margin="10,0,0,0" TextColor="{StaticResource TextColorStandart}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <Label Text="Оплата картой MasterCard. В_разработке" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" MaxLines="3" Grid.RowSpan="3" Margin="10,0,0,0" TextColor="{StaticResource TextColorStandart}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            <Label Text="Оплата картой МИР. В_разработке" MaxLines="2" Grid.RowSpan="3" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="2" Margin="10,0,0,0" TextColor="{StaticResource TextColorStandart}" HorizontalOptions="Center" VerticalOptions="Center"/>
                                             <ImageButton x:Name="NalButton" Clicked="NalButton_Click" Source="Nalichka100x100" Grid.Column="0" Grid.Row="1" Grid.RowSpan="5" Padding="8" Margin="-5" VerticalOptions="Center" HorizontalOptions="Center" BorderWidth="3" BackgroundColor="{StaticResource SecondColor}" BorderColor="{StaticResource ThirdColor}" CornerRadius="50"/>
                                             <ImageButton x:Name="MSButton" Clicked="MSButton_Click" Source="MCCard100x100" Grid.Column="0" Grid.Row="5" Grid.RowSpan="5" Margin="-5" Padding="8" VerticalOptions="Center" HorizontalOptions="Center" BorderWidth="3" BackgroundColor="{StaticResource SecondColor}" BorderColor="{StaticResource ThirdColor}" CornerRadius="50"/>
                                             <ImageButton x:Name="MirButton" Clicked="MIRButton_Click" Source="MIRCard100x100" Grid.Column="0" Grid.Row="9" Grid.RowSpan="5" Padding="8" Margin="-5" VerticalOptions="Center" HorizontalOptions="Center" BorderWidth="3" BackgroundColor="{StaticResource SecondColor}" BorderColor="{StaticResource ThirdColor}" CornerRadius="50"/>

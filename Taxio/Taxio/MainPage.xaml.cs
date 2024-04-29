@@ -9,6 +9,7 @@ using System.Net;
 using System.Threading;
 using System.Timers;
 using System.Threading.Tasks;
+using SQLite;
 namespace Taxio
 {
     public partial class MainPage : ContentPage
@@ -39,12 +40,13 @@ namespace Taxio
             USERNAME.Text = Convert.ToString(u.FirstOrDefault().User_name);
             var order = await MainPage.Database.GetOrderDAT();
             RightsPolicy.Text = "Copyright ©. All rights reserved";
+            LastOrderWriter();
         }
 
         //ADRESS
         private readonly List<string> _Adress = new List<string>
         {
-            "Фрунзецкая,Д.1","Фрунзецкая,Д.2","Фрунзецкая,Д.3","Фрунзецкая,Д.4","Фрунзецкая,Д.5","Фрунзецкая,Д.6","Фрунзецкая,Д.7","Фрунзецкая,Д.8","Фрунзецкая,Д.9","Фрунзецкая,Д.10","Дом советов,10"
+            "Ленина,Д.1","Ленина,Д.2","Ленина,Д.3","Ленина,Д.4","Ленина,Д.5","Ленина,Д.6","Ленина,Д.7","Ленина,Д.8","Ленина,Д.9","Ленина,Д.10","Дом советов,10"
         };
         private string Adresss1;
         private string Adresss2;
@@ -53,16 +55,16 @@ namespace Taxio
         {
             int[,] distances = new int[,]
             {
-                {0,100,200,300,400,500,600,700,800,900,1000}, // Расстояние от Фрунзецкая.Д.1 до всех адресов
-                {100,0,100,200,300,400,500,600,700,800,900 }, // Расстояние от Фрунзецкая.Д.2 до всех адресов
-                {200,100,0,100,200,300,400,500,600,700,800 }, // Расстояние от Фрунзецкая.Д.3 до всех адресов
-                {300,200,100,0,100,200,300,400,500,600,700}, // Расстояние от Фрунзецкая.Д.4 до всех адресов
-                {400,300,200,100,0,100,200,300,400,500,600}, // Расстояние от Фрунзецкая.Д.5 до всех адресов
-                {500,400,300,200,100,0,100,200,300,400,500}, // Расстояние от Фрунзецкая.Д.6 до всех адресов
-                {600,500,400,300,200,100,0,100,200,300,400 }, // Расстояние от Фрунзецкая.Д.7 до всех адресов
-                {700,600,500,400,300,200,100,0,100,200,300 }, // Расстояние от Фрунзецкая.Д.8 до всех адресов
-                {800,700,600,500,400,300,200,100,0,100,200 }, // Расстояние от Фрунзецкая.Д.9 до всех адресов
-                {900,800,700,600,500,400,300,200,100,0,100}, // Расстояние от Фрунзецкая.Д.10 до всех адресов
+                {0,100,200,300,400,500,600,700,800,900,1000}, // Расстояние от Ленина.Д.1 до всех адресов
+                {100,0,100,200,300,400,500,600,700,800,900 }, // Расстояние от Ленина.Д.2 до всех адресов
+                {200,100,0,100,200,300,400,500,600,700,800 }, // Расстояние от Ленина.Д.3 до всех адресов
+                {300,200,100,0,100,200,300,400,500,600,700}, // Расстояние от Ленина.Д.4 до всех адресов
+                {400,300,200,100,0,100,200,300,400,500,600}, // Расстояние от Ленина.Д.5 до всех адресов
+                {500,400,300,200,100,0,100,200,300,400,500}, // Расстояние от Ленина.Д.6 до всех адресов
+                {600,500,400,300,200,100,0,100,200,300,400 }, // Расстояние от Ленина.Д.7 до всех адресов
+                {700,600,500,400,300,200,100,0,100,200,300 }, // Расстояние от Ленина.Д.8 до всех адресов
+                {800,700,600,500,400,300,200,100,0,100,200 }, // Расстояние от Ленина.Д.9 до всех адресов
+                {900,800,700,600,500,400,300,200,100,0,100}, // Расстояние от Ленина.Д.10 до всех адресов
                 {1000,900,800,700,600,500,400,300,200,100,0}, // Расстояние от Дом советов.10 до всех адресов
             };
             int index1 = _Adress.IndexOf(Adresss1);
@@ -96,6 +98,7 @@ namespace Taxio
         {
             if (Adresss1 != null && Adresss2 != null)
             {
+                FlyoutMenu.IsEnabled = true;
                 FrameAdress.HeightRequest = 400;
                 Grid.SetRow(AdressLayout, 1);
                 Grid.SetRow(PosRN_Search_AdressToGo, 3);
@@ -126,6 +129,7 @@ namespace Taxio
             }
             else
             {
+                FlyoutMenu.IsEnabled = false;
                 FrameAdress.HeightRequest = 200;
                 Grid.SetRow(AdressLayout, 5);
                 Grid.SetRow(PosRN_Search_AdressToGo, 5);
@@ -221,6 +225,7 @@ namespace Taxio
         public MainPage()
         {
             InitializeComponent();
+            checkerSost();
         }
         //CALCULATIONS
         private void PriceWithoutClass ()
@@ -286,7 +291,7 @@ namespace Taxio
         // Method returns Driver name, car name and gos num
         private async void _RatePicker(int rate)
         {
-            var c = await MainPage.Database.GetCarsV3();
+            var c = await MainPage.Database.GetCarsV4();
             int carindex = 0;
             var list_indexstore = new List<int>();
             int len = list_indexstore.Count();
@@ -304,9 +309,8 @@ namespace Taxio
             DriverNamenCar.Text = Convert.ToString(c.ElementAt(carindex).Driver_name + " / " + c.ElementAt(carindex).car_vendors);
             Car_GosNum.Text = Convert.ToString(c.ElementAt(carindex).Car_Gos);
             carindex = 0;
-            indexfinder = null;   
+            indexfinder = null;
         }
-
         // Method take several methods to write distance, time to travel and price
         private void _ORDER_OPTION(int rate)
         {
@@ -328,20 +332,21 @@ namespace Taxio
         {
             rate = 3;
             _ORDER_OPTION(rate);
-            OrderClass = 1;
+            OrderClass = 3;
         }
         private void ComfortButton_Click(object sender, EventArgs e)
         {
             rate = 2;
             _ORDER_OPTION(rate);
-            OrderClass = 1;
+            OrderClass = 2;
         }
+        private string OrderClassTXT;
         private async void OrderConfirm_Click(object sender, EventArgs e)
         {
-            string OrderClassTXT = "";
+            
             var order = await MainPage.database.GetOrderDAT();
             string Adress_A = PosRN_Search_AdressTo.Text + ".";
-            string Adress_B = PosRN_Search_AdressTo.Text + ".";
+            string Adress_B = PosRN_Search_AdressToGo.Text + ".";
             int Id = Convert.ToInt32(order.Last().ID) + 1;
             switch (OrderClass)
             {
@@ -363,7 +368,28 @@ namespace Taxio
             {
                 _RatePicker(rate);
                 TimeToGo();
-                new OrderData {ID = Id, Adress_A_B = $"{Adress_A} / {Adress_B}", OrderClass = OrderClassTXT, Distance = TimeToTravel.Text, Price = OrderPrice.Text, Gos_Car = Car_GosNum.Text, Driver_Name_Car = DriverNamenCar.Text};
+                await Task.Delay(50);
+                string result = "";
+                string legthstopper = DriverNamenCar.Text;
+                char delimeter = '/';
+                int index = legthstopper.IndexOf(delimeter);
+                if (index != -1)
+                {
+                    result = legthstopper.Substring(0, index);
+                }
+                await Task.Delay(100);
+                var new_Order = new OrderDataV4
+                {
+                    Driver_Name_Car = result,
+                    ID = Id,
+                    Price = OrderPrice.Text,
+                    OrderClass = OrderClassTXT,
+                    Adress_A_B = $"{Adress_A} → {Adress_B}",
+                    PaymentOption = paymentclass,
+                };
+                await database.AddNewOrder(new_Order);
+                LastOrderWriter();
+
             }
         }
         private int paymentclass = 3;
@@ -421,5 +447,41 @@ namespace Taxio
             paymentoption();
             Payoption.Source = "Nalichka100x100";
         }
+        private async void LastOrderWriter()
+        {
+            var order = await MainPage.database.GetOrderDAT();
+            string orderclass = order.LastOrDefault().OrderClass.ToString();
+            switch (orderclass)
+            {
+                case "Эконом":
+                    OrderImage.Source = "Eco_car_ref.png";
+                    break;
+                case "Комфорт":
+                    OrderImage.Source = "Comf_Car_Ref.png";
+                    break;
+                case "Бизнес":
+                    OrderImage.Source = "Bui_Car_Ref.png";
+                    break;
+            }
+            OrderClas2.Text = orderclass;
+            CostLastOrder.Text = order.LastOrDefault().Price.ToString();
+            LastOrderId.Text = $"ID: {order.LastOrDefault().ID}";
+            int PaymentOptionorder = order.LastOrDefault().PaymentOption;
+            switch (PaymentOptionorder)
+            {
+                case 1:
+                    OrderPaymentOption.Text = "Карта МИР";
+                    break;
+                case 2:
+                    OrderPaymentOption.Text = "Карта MasterCard";
+                    break;
+                case 3:
+                    OrderPaymentOption.Text = "Наличные";
+                    break;
+            }
+            AdressLastOrder.Text = order.LastOrDefault().Adress_A_B.ToString();
+            LastNameOfOrder.Text = order.LastOrDefault().Driver_Name_Car.ToString();
+            }
+        }
     }
-}
+
