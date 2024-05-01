@@ -319,6 +319,41 @@ namespace Taxio
             OrderConfirm.IsEnabled = true;
         }
         //LOGIC
+        private async void RegisterBTN_Click(object sender, EventArgs e)
+        {
+        }
+        private async Task ActivityIndicatorOrd()
+        {
+            OrderApprovewIndicator.IsRunning = true;
+            LoadFrame.IsVisible = true;
+            await Task.Delay(500);
+            await AnimateActivityCar();
+            ActivityCarImage.TranslationX = -1000;
+            ActivityCarImage.IsVisible = false;
+            LoadFrame.IsVisible = false;
+            OrderApprovewIndicator.IsRunning = false;
+        }
+        private async System.Threading.Tasks.Task AnimateActivityCar()
+        {
+            ActivityCarImage.IsVisible = true;
+            switch (OrderClass)
+            {
+                case 1:
+                    ActivityCarImage.Source = "Eco_car_ref.png";
+                    break;
+                case 2:
+                    ActivityCarImage.Source = "Comf_Car_Ref.png";
+                    break;
+                case 3:
+                    ActivityCarImage.Source = "Bui_Car_Ref.png";
+                    break;
+            }    
+            await ActivityCarImage.TranslateTo(0,0,2000,Easing.SinOut);
+            await ActivityCarImage.ScaleTo(2.7, 300);
+            await ActivityCarImage.ScaleTo(2.5, 300);
+            await Task.Delay(500);
+            await ActivityCarImage.TranslateTo(500, 0, 2000, Easing.SinOut);
+        }
         private static System.Timers.Timer timer;
         private int OrderClass;
         private int rate;
@@ -366,6 +401,7 @@ namespace Taxio
             }
             else
             {
+                await ActivityIndicatorOrd();
                 _RatePicker(rate);
                 TimeToGo();
                 await Task.Delay(50);
@@ -391,6 +427,7 @@ namespace Taxio
                 LastOrderWriter();
 
             }
+           
         }
         private int paymentclass = 3;
         private void paymentoption()

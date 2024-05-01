@@ -57,6 +57,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <ImageButton x:Name="FlyoutMenu" Clicked="FlyoutMenu_Click" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Source="Profile.png" CornerRadius="50" Margin="10,10,0,0" HorizontalOptions="Start" BackgroundColor="DimGray"/>
+            <Button x:Name="RegisterBTN" Text="Регистрация" Clicked="RegisterBTN_Click" FontSize="5" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3" BackgroundColor="{StaticResource BaseColor}" TextColor="{StaticResource TextColorStandart}" CornerRadius="20" Margin="0,20,10,10"/>
             <StackLayout x:Name="AdressLayout" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="7" Grid.RowSpan="8" >
                 <Frame x:Name="FrameAdress" BackgroundColor="{StaticResource SecondColor}" HeightRequest="200" CornerRadius="30">
                     <AbsoluteLayout>
@@ -123,7 +124,7 @@
                                                         <RowDefinition/>
                                                         <RowDefinition/>
                                                     </Grid.RowDefinitions>
-                                                    
+
                                                     <Label Text="Последний заказ:" TextColor="{StaticResource TextColorStandart}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Margin="-10"/>
                                                     <ImageButton x:Name="OrderImage" IsEnabled="False" BorderWidth="2" BorderColor="{StaticResource SecondColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="5" Source="Eco_Car_Ref.png" BackgroundColor="{StaticResource FirstColor}" Padding="10,-35,30,0" Margin="-12,10,0,0" CornerRadius="17" WidthRequest="100" HorizontalOptions="Start" VerticalOptions="Center" HeightRequest="80" AbsoluteLayout.LayoutFlags="PositionProportional" Aspect="AspectFit"/>
                                                     <Label x:Name="OrderClas2" FontAttributes="Bold" FontSize="14" CharacterSpacing="2" TextColor="{StaticResource ThirdColor}" Grid.Column="0" Grid.RowSpan="3" Grid.Row="2" Grid.ColumnSpan="2" InputTransparent="True" Text="Эконом" Margin="-2,5,0,0"/>
@@ -147,7 +148,7 @@
                                     <StackLayout>
                                         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition/> 
+                                                <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
@@ -235,6 +236,9 @@
                     </AbsoluteLayout>
                 </Frame>
             </StackLayout>
+            <Frame x:Name="LoadFrame" InputTransparent="False" IsVisible="false" BackgroundColor="#4C000000" Grid.ColumnSpan="9" Grid.RowSpan="15"/>
+            <Image x:Name="ActivityCarImage" TranslationX="-1000" Grid.Row="7" Grid.Column="4" Source="Eco_car_ref.png" Scale="2.5"/>
+            <ActivityIndicator x:Name="OrderApprovewIndicator" Grid.Column="4" Scale="3.5" Grid.Row="7" IsRunning="False" Color="{StaticResource BaseColor}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" InputTransparent="True"/>
         </Grid>
     </StackLayout>
 </ContentPage>

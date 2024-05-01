@@ -27,7 +27,7 @@ namespace Taxio
             {
                 await database.InsertAllAsync(new OrderDataV4[]
                 {
-                    new OrderDataV4{ID = 0, Adress_A_B = "Ленина,Д.4 → Ленина,Д.8", Driver_Name_Car = "Степанов Валентин Генадьевич", OrderClass = "Бизнес", Price = "156 ₽", PaymentOption = 1}
+                    new OrderDataV4{ID = 0, Adress_A_B = "От → До", Driver_Name_Car = "Фамилия Имя Отчество", OrderClass = "Класс", Price = "? ₽", PaymentOption = 1}
                 });
                 return await database.Table<OrderDataV4>().ToListAsync();
             }
